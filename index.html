@@ -74,9 +74,14 @@
                     </form>
                 </div>
                 <ul class="nav navbar-top-links navbar-right">
+                	<li id="adminButton">
+                		<a onclick="admin()">
+                			<i class="fa fa-user"></i>admin
+                		</a>
+                	</li>
                     <li id="signButton">
                         <a data-toggle="modal" data-target="#myModal" id="signButton">
-                        	<i class="fa fa-sign-out">Login</i>
+                        	<i class="fa fa-sign-out"></i>Login
                         </a>
                     </li>
                 </ul>
@@ -140,50 +145,67 @@
                     <img id="profileImg" class="img-circle" src="" />
                 </div>
                 <div class="form-group">
-                    <input id="username" type="text" class="form-control" placeholder="이름" readonly>
+                    <input id="usernameInput" type="text" class="form-control" placeholder="이름" readonly>
                 </div>
                 <div class="form-group">
-                    <input id="email" type="email" class="form-control" placeholder="이메일" readonly>
-                </div>
-                <div class="form-group">
-                   	<div class="btn-group">
-                       <button data-toggle="dropdown" class="btn btn-default dropdown-toggle">부서 <span class="caret"></span></button>
-                       <ul class="dropdown-menu">
-                           <li><a href="#"></a></li>
-                           <li><a href="#"></a></li>
-                           <li><a href="#"></a></li>
-                           <li><a href="#"></a></li>
-                       </ul>
-                   </div>
+                    <input id="emailInput" type="email" class="form-control" placeholder="이메일" readonly>
                 </div>
 			 	<div class="form-group">
-                   <div class="btn-group">
-                       <button data-toggle="dropdown" class="btn btn-default dropdown-toggle">직책 <span class="caret"></span></button>
-                       <ul class="dropdown-menu">
-                           <li><a href="#"></a></li>
-                           <li><a href="#"></a></li>
-                           <li><a href="#"></a></li>
-                           <li><a href="#"></a></li>
-                       </ul>
-                   </div>
+			 	<div class="btn-group">
+			 		<input id="department" type="text" class="form-control" placeholder="부서">
+					<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">선택 <span class="caret"></span></button>
+                    <ul id="department1" class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li><a href="#">Separated link</a></li>
+                    </ul>			 		
+                </div>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="내선번호(-제외)" required>
+                <div class="btn-group">
+			 		<input id="job" type="text" class="form-control" placeholder="직책">
+			 		<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">선택 <span class="caret"></span></button>
+                    <ul id="job" class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li><a href="#">Separated link</a></li>
+                    </ul>
+                </div>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="전화번호(-제외)" required>
+                    <input id="extension" type="text" class="form-control" placeholder="내선번호" required>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="비상연락처(-제외)" required>
+                    <input id="call" type="text" class="form-control" data-mask="(999) 9999-9999" placeholder="전화번호">
+                </div>
+                <div class="form-group">
+                    <input id="emergency" type="text" class="form-control" data-mask="(999) 9999-9999" placeholder="비상연락처">
                 </div>
                 <div class="form-group">
                    	<input type="text" class="form-control" id="sample6_address" placeholder="주소">
-					<input type="text" class="form-control" id="sample6_address2" placeholder="상세주소">
+					<input type="text" class="w-150 form-control" id="sample6_address2" placeholder="상세주소">
 					<button id="address" onclick="sample6_execDaumPostcode()" class="btn btn-default" type="button">
 					<i class="fa fa-search"></i>&nbsp;&nbsp;주소검색</button>
                 </div>
                 <div class="form-group">
-                    <input id="birth" type="text" class="form-control" placeholder="생년월일(-제외)" required>
+                    <div class="btn-group">
+                       <button data-toggle="dropdown" class="w-150 btn btn-default dropdown-toggle">년도 <span class="caret"></span></button>
+                       <ul id="year" class="dropdown-menu">
+                           <li><a href="#"></a></li>
+                       </ul>
+                   </div>
+                   <div class="btn-group">
+                       <button data-toggle="dropdown" class="btn btn-default dropdown-toggle">월 <span class="caret"></span></button>
+                       <ul id="month" class="dropdown-menu">
+                           <li><a href="#"></a></li>
+                       </ul>
+                   </div>
+                   <div class="btn-group">
+                       <button data-toggle="dropdown" class="btn btn-default dropdown-toggle">일 <span class="caret"></span></button>
+                       <ul id="day" class="dropdown-menu">
+                           <li><a href="#"></a></li>
+                       </ul>
+                   </div>
                 </div>
                 <button type="submit" class="btn btn-primary block full-width m-b">Register</button>
             </form>
@@ -210,6 +232,9 @@
 
 <!-- daum 주소찾기 -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
+<!-- input mask -->
+<script src="js/plugins/jasny/jasny-bootstrap.min.js"></script>
 
 </body>
 

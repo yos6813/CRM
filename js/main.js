@@ -3,7 +3,21 @@ var user = firebase.auth().currentUser;
 /* window load */
 
 window.addEventListener('load', function() {
-	
+	if(firebase.auth().currentUser == null){
+		document.getElementById("signButton1").innerHTML = '<a data-toggle="modal" data-target="#myModal">Login</a>';
+		document.getElementById("userName").innerHTML = '로그인을 해주세요.';
+		document.getElementById("eMail").innerHTML = '';
+		document.getElementById("signButton").innerHTML = '<a data-toggle="modal" data-target="#myModal">'+
+		'<i class="fa fa-sign-out"></i>Login' +
+		'</a>';
+	} else {
+		document.getElementById("signButton").innerHTML = '<a onclick="signOut()"><i class="fa fa-sign-out">&nbsp;Logout</i></a>';
+		document.getElementById("signButton1").innerHTML = '<a onclick="signOut()">Logout</a>';
+		firebase.auth().onAuthStateChanged(function(user) {
+			document.getElementById("userName").innerHTML = firebase.auth().currentUser.displayName;
+			document.getElementById("eMail").innerHTML = firebase.auth().currentUser.email;
+		});
+	}
 });
 
 /* 로그아웃 */
@@ -15,7 +29,7 @@ function signOut(){
 		x.className = "show";
 	setTimeout(function(){x.className = x.className.replace("show", "");},3000);
 	document.getElementById("signButton").innerHTML = '<a data-toggle="modal" data-target="#myModal">'+
-	'<i class="fa fa-sign-out">Login</i>' +
+	'<i class="fa fa-sign-out"></i>Login' +
 	'</a>';
 	document.getElementById("signButton1").innerHTML = '<a data-toggle="modal" data-target="#myModal">Login</a>';
 	document.getElementById("userName").innerHTML = '로그인을 해주세요.';
@@ -28,31 +42,45 @@ function signIn(){
 	var provider = new firebase.auth.GoogleAuthProvider();
 	firebase.auth().signInWithPopup(provider);
 	
-	var user = new firebase.auth().currentUser;
-	firebase.database().ref('/user-infos/' + user.uid).on('value', function(snapshot){
+	var userId = firebase.auth().currentUser.uid;
+	firebase.database().ref('/users/' + userId).on('value', function(snapshot){
 		if(snapshot.val() != null){
+			alert(snapshot.val());
 			$('#myModal').modal('hide');
 			var x = document.getElementById("snackbar");
 			x.innerHTML = 'Login'
 			x.className = "show";
 			setTimeout(function(){x.className = x.className.replace("show", "");},3000);
-			document.getElementById("signButton").innerHTML = '<a onclick="signOut()"><i class="fa fa-sign-out">&nbsp;Logout</i></a>';
+			document.getElementById("signButton").innerHTML = '<a onclick="signOut()"><i class="fa fa-sign-out"></i>&nbsp;Logout</a>';
 			document.getElementById("signButton1").innerHTML = '<a onclick="signOut()">Logout</a>';
 			firebase.auth().onAuthStateChanged(function(user) {
+				var user = firebase.auth().currentUser;
 				document.getElementById("userName").innerHTML = firebase.auth().currentUser.displayName;
 				document.getElementById("eMail").innerHTML = firebase.auth().currentUser.email;
+				writeUserData(user.uid, user.displayName, user.email, user.photoURL);
 			});
 		} else {
 			$('#myModal').modal('hide');
 			$('#myModal1').modal('show');
-			document.getElementById("username").value = firebase.auth().currentUser.displayName;
-			document.getElementById("email").value = firebase.auth().currentUser.email;
+			document.getElementById("usernameInput").value = firebase.auth().currentUser.displayName;
+			document.getElementById("emailInput").value = firebase.auth().currentUser.email;
 			document.getElementById("profileImg").src = firebase.auth().currentUser.photoURL;
+			document.getElementById("department").value = '';
+			document.getElementById("job").value = '';
+			document.getElementById("extension").value= '';
+			document.getElementById("call").value = '';
+			document.getElementById("emergency").value = '';
+			document.getElementById("sample6_address").value = '';
+			document.getElementById("sample6_address2").value = '';
+			document.getElementById("year").value = '년도';
+			document.getElementById("month").value = '월';
+			document.getElementById("day").value = '일';
 		}
 	});
 }
 
 /* Register */
+
 
 
 /* 다음 주소 찾기 */
@@ -98,8 +126,50 @@ function sample6_execDaumPostcode() {
     }).open();
 }
 
-/* second window */
+/* load window */
 
 function minor(){
 	$("#bodyPage").load("minor.html")
+}
+
+function admin(){
+	$("#bodyPage").load("admin.html")
+}
+
+/* add User */
+
+function writeUserData(userId, name, email, imageUrl) {
+  firebase.database().ref('users/' + userId).set({
+    username: name,
+    email: email,
+    profile_picture : imageUrl
+  });
+}
+
+/* add Admin */
+
+function addDepartment(department){
+	var departmentData = {
+		department: department
+	};
+	
+	var newDepartmentKey = firebase.database().ref().child('department').push().key;
+	
+	var updates = {};
+    updates['/department/' + newPostKey] = departmentData;
+
+    return firebase.database().ref().update(updates);
+}
+
+function newDepartment(department) {
+  var userId = firebase.auth().currentUser.uid;
+  return firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
+    return addDepartment(department);
+  });
+}
+
+document.getElementById("departmentSubmit").submit = function(e){
+	newDepartment(department).then(function() {
+		admin();
+	});
 }

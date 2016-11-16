@@ -8454,7 +8454,7 @@ body.md-skin {
 	clear: both;
 }
 
-#sample6_address2{
-	width:200px;
-	float:left;
+#sample6_address2, #department, #job{
+	float: left;
+	width: 200px;
 }
