@@ -1,8 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700");
 @import url("https://fonts.googleapis.com/css?family=Roboto:400,300,500,700");
 @import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css);
-@import url(http://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css);
-
 
 /*
  *
@@ -11,9 +9,14 @@
  *
 */
 
+@font-face{
+	font-family: Jeju Gothic;
+	src: local("JejuGothic-Regular");
+	font-weight: 100;
+}
+
 *{
 	font-family: 'Jeju Gothic', sans-serif;
-	font-weight:100;
 }
 
 h1,

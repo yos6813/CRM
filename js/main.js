@@ -1,4 +1,6 @@
-var user = firebase.auth().currentUser;
+(function(){
+    "use strict";
+})();
 
 /* window load */
 
@@ -18,7 +20,18 @@ window.addEventListener('load', function() {
 			document.getElementById("eMail").innerHTML = firebase.auth().currentUser.email;
 		});
 	}
+	
+	document.getElementById("departmentForm").onsubmit = function(e) {
+		var department1 = document.getElementById("departmentInput").value;
+		alert(department1);
+		addDepartment(department1).then(function() {
+			addDepartment.save();
+			admin();
+		});
+		department1.value = '';
+	}
 });
+
 
 /* 로그아웃 */
 
@@ -153,23 +166,17 @@ function addDepartment(department){
 		department: department
 	};
 	
-	var newDepartmentKey = firebase.database().ref().child('department').push().key;
+	var newDepartmentKey = firebase.database().ref().child('departments').push().key;
 	
 	var updates = {};
-    updates['/department/' + newPostKey] = departmentData;
+    updates['/departments/' + newDepartmentKey] = departmentData;
 
     return firebase.database().ref().update(updates);
 }
 
-function newDepartment(department) {
-  var userId = firebase.auth().currentUser.uid;
-  return firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
-    return addDepartment(department);
-  });
-}
-
-document.getElementById("departmentSubmit").submit = function(e){
-	newDepartment(department).then(function() {
-		admin();
-	});
-}
+//function newDepartment(department) {
+//  var userId = firebase.auth().currentUser.uid;
+//  return firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
+//    return addDepartment(department);
+//  });
+//}

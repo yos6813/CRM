@@ -1,6 +1,5 @@
-<!DOCTYPE html>
-<html>
-
+<!doctype html>
+<html lang="en">
 
 <script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
@@ -15,10 +14,9 @@
   };
   firebase.initializeApp(config);
 </script>
-<script type="text/javascript" src="js/main.js"></script>
 <head>
-
     <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>CRM | Main view</title>
@@ -28,13 +26,11 @@
 
     <link href="css/animate.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-
 </head>
 
 <body>
 
 <div id="wrapper">
-
     <nav class="navbar-default navbar-static-side" role="navigation">
         <div class="sidebar-collapse">
             <ul class="nav metismenu" id="side-menu">
@@ -140,7 +136,7 @@
         </div>
 		  <div class="middle-box text-center loginscreen   animated fadeInDown">
         <div>
-            <form class="m-t" role="form">
+            <form id="registerForm" class="m-t" role="form">
             	<div class="form-group">
                     <img id="profileImg" class="img-circle" src="" />
                 </div>
@@ -152,31 +148,37 @@
                 </div>
 			 	<div class="form-group">
 			 	<div class="btn-group">
-			 		<input id="department" type="text" class="form-control" placeholder="부서">
+			 		<input id="department" type="text" class="form-control" placeholder="부서(*)" readonly required>
 					<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">선택 <span class="caret"></span></button>
                     <ul id="department1" class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li><a href="#">Separated link</a></li>
+                        <li><a>임원</a></li>
+                        <li><a>CRM팀</a></li>
+                        <li><a>기획팀</a></li>
+                        <li><a>자문팀</a></li>
+                        <li><a>아카데미팀</a></li>
+                        <li><a>경영지원팀</a></li>
                     </ul>			 		
                 </div>
                 </div>
                 <div class="form-group">
                 <div class="btn-group">
-			 		<input id="job" type="text" class="form-control" placeholder="직책">
+			 		<input id="job" type="text" class="form-control" placeholder="직책(*)" readonly required>
 			 		<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">선택 <span class="caret"></span></button>
-                    <ul id="job" class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li><a href="#">Separated link</a></li>
+                    <ul id="job1" class="dropdown-menu">
+                        <li><a>CEO</a></li>
+                        <li><a>CFO</a></li>
+                        <li><a>COO</a></li>
+                        <li><a>고문</a></li>
+                        <li><a>팀장</a></li>
+                        <li><a>사원</a></li>
                     </ul>
                 </div>
                 </div>
                 <div class="form-group">
-                    <input id="extension" type="text" class="form-control" placeholder="내선번호" required>
+                    <input id="extension" type="text" class="form-control" placeholder="내선번호(*)" required>
                 </div>
                 <div class="form-group">
-                    <input id="call" type="text" class="form-control" data-mask="(999) 9999-9999" placeholder="전화번호">
+                    <input id="call" type="text" class="form-control" data-mask="(999) 9999-9999" placeholder="전화번호(*)" required>
                 </div>
                 <div class="form-group">
                     <input id="emergency" type="text" class="form-control" data-mask="(999) 9999-9999" placeholder="비상연락처">

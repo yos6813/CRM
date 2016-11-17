@@ -10,72 +10,73 @@
 <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
 <link href="css/animate.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
-<script type="text/javascript" src="js/main.js"></script>
+
 </head>
 <body>
-<div class="tabs-container">
-    <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#tab-1"> 부서 리스트</a></li>
-        <li class=""><a data-toggle="tab" href="#tab-2">직책 리스트</a></li>
-    </ul>
-    <div class="tab-content">
-        <div id="tab-1" class="tab-pane active">
-            <div class="ibox float-e-margins">
-                 <div class="ibox-title">
-                     <h5>부서 리스트</h5>
-                 </div>
-                 <div class="ibox-content no-padding">
-                     <ul class="list-group">
-                         <li class="list-group-item">
-                             But I must explain to
-                         </li>
-                     </ul>
-                 </div>
-             </div>
-             <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <h5>부서 추가</h5>
-                </div>
-                <div class="ibox-content">
-                    <form id="departmentSubmit" role="form" class="form-inline">
-                        <div class="form-group">
-                            <input type="text" placeholder="Enter Text" class="form-control" id="departmentInput">
-                        </div>
-	                        <button class="btn btn-white" type="submit">Add</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div id="tab-2" class="tab-pane">
-            <div class="ibox float-e-margins">
-                 <div class="ibox-title">
-                     <h5>직책 리스트</h5>
-                 </div>
-                 <div class="ibox-content no-padding">
-                     <ul class="list-group">
-                         <li class="list-group-item">
-                             But I must explain to
-                         </li>
-                     </ul>
-                 </div>
-             </div>
-             <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <h5>직책 추가</h5>
-                </div>
-                <div class="ibox-content">
-                    <form role="form" class="form-inline">
-                        <div class="form-group">
-                            <input type="text" placeholder="Enter Text" class="form-control" id="departmentInput">
-	                        <button id="jobSubmit" class="btn btn-white" type="submit">Add</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="tabs-container">
+	    <ul class="nav nav-tabs">
+	        <li class="active"><a data-toggle="tab" href="#tab-1"> 부서 리스트</a></li>
+	        <li class=""><a data-toggle="tab" href="#tab-2">직책 리스트</a></li>
+	    </ul>
+	    <div class="tab-content">
+	        <div id="tab-1" class="tab-pane active">
+	            <div class="ibox float-e-margins">
+	                 <div class="ibox-title">
+	                     <h5>부서 리스트</h5>
+	                 </div>
+	                 <div class="ibox-content no-padding">
+	                     <ul class="list-group">
+	                         <li class="list-group-item">
+	                             But I must explain to
+	                         </li>
+	                     </ul>
+	                 </div>
+	             </div>
+	             <div class="ibox float-e-margins">
+	                <div class="ibox-title">
+	                    <h5>부서 추가</h5>
+	                </div>
+	                <div class="ibox-content">
+	                    <form id="departmentForm" class="form-inline">
+	                        <div class="form-group">
+	                            <input type="text" placeholder="Enter Text" class="form-control" id="departmentInput">
+	                        </div>
+		                        <input class="btn btn-white" type="button" id="departButton" value="Add">
+	                    </form>
+	                </div>
+	            </div>
+	        </div>
+	        <div id="tab-2" class="tab-pane">
+	            <div class="ibox float-e-margins">
+	                 <div class="ibox-title">
+	                     <h5>직책 리스트</h5>
+	                 </div>
+	                 <div class="ibox-content no-padding">
+	                     <ul class="list-group">
+	                         <li class="list-group-item">
+	                             But I must explain to
+	                         </li>
+	                     </ul>
+	                 </div>
+	             </div>
+	             <div class="ibox float-e-margins">
+	                <div class="ibox-title">
+	                    <h5>직책 추가</h5>
+	                </div>
+	                <div class="ibox-content">
+	                    <form role="form" class="form-inline">
+	                        <div class="form-group">
+	                            <input type="text" placeholder="Enter Text" class="form-control" id="jobInput">
+		                        <button class="btn btn-white" type="submit">Add</button>
+	                        </div>
+	                    </form>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
 </div>
-
 <!-- Mainly scripts -->
     <script src="js/jquery-2.1.1.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -85,5 +86,6 @@
     <!-- Custom and plugin javascript -->
     <script src="js/inspinia.js"></script>
     <script src="js/plugins/pace/pace.min.js"></script>
+    
 </body>
 </html>
