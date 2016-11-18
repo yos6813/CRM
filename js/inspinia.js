@@ -7,8 +7,7 @@
 
 
 $(document).ready(function () {
-
-
+	
     // Add body-small class if window less than 768px
     if ($(this).width() < 769) {
         $('body').addClass('body-small')
@@ -186,6 +185,11 @@ $(window).bind("resize", function () {
 // Local Storage functions
 // Set proper body class and plugins based on user configuration
 $(document).ready(function () {
+	
+	$(document).one({
+		load: function(){ $("#bodyPage").load("main.html")}
+	})
+	
     if (localStorageSupport()) {
 
         var collapse = localStorage.getItem("collapse_menu");
@@ -247,13 +251,13 @@ $(document).ready(function () {
 			document.getElementById("eMail").innerHTML = firebase.auth().currentUser.email;
 		});
 	}
-	
+    
 });
 $("#departButton").click = function(e) {
 	e.preventDefault();
 	alert("Submit Click");
-	addDepartment($("#departmentInput").val());
-	department1.value = '';
+	addDepartment(document.getElementById("departmentInput").value);
+	document.getElementById("departmentInput").value = '';
 }
 
 // check if browser support HTML5 local storage
@@ -408,6 +412,7 @@ function sample6_execDaumPostcode() {
             }
 
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            document.getElementById('sample6_postcode').value = data.zonecode; //5자리 새우편번호 사용
             document.getElementById('sample6_address').value = fullAddr;
 
             // 커서를 상세주소 필드로 이동한다.
@@ -424,6 +429,10 @@ function minor(){
 
 function admin(){
 	$("#bodyPage").load("admin.html")
+}
+
+function main(){
+	$("#bodyPage").load("main.html")
 }
 
 /* add User */
@@ -489,8 +498,7 @@ function newinfoForCurrentUser(department, job, extension, call, emergency, addr
   });
 }
 
-$("#registerForm").submit(function(e) {
-    e.preventDefault();
+function department() {
     var department = $("#department").val();
     var job = $("job").val();
     var extension = $("#extension").val();
@@ -512,8 +520,11 @@ $("#registerForm").submit(function(e) {
 		address = '';
 		birth = '';
     }
-  });
+  }
   
 $("#department1").select(function(e){
 	
 });
+
+/* 달력 */
+
