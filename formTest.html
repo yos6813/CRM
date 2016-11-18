@@ -5,7 +5,6 @@
 <title>Insert title here</title>
 <script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
-<link href="css/plugins/select2/select2.min.css" rel="stylesheet">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -13,24 +12,25 @@
 <link href="css/animate.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
 <script type="text/javascript" src="js/main.js"></script>
+<link href="css/plugins/datapicker/datepicker3.css">
 </head>
 <body>
-<div class="col-md-4">
-    <p>
-        Select2 is a jQuery based replacement for select boxes. It can take a regular select box and turn it into:
-    </p>
-    <select class="select2_demo_1 form-control">
-        <option value="1">Option 1</option>
-        <option value="2">Option 2</option>
-        <option value="3">Option 3</option>
-        <option value="4">Option 4</option>
-        <option value="5">Option 5</option>
-    </select>
+<div class="form-group" id="data_1">
+    <label class="font-noraml">Simple data input format</label>
+    <div class="input-group date">
+        <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" value="03/04/2014">
+    </div>
 </div>
-
-<script src="js/plugins/select2/select2.full.min.js"></script>
 <script type="text/javascript">
-$(".select2_demo_1").select2();
+$('#data_1 .input-group.date').datepicker({
+    todayBtn: "linked",
+    keyboardNavigation: false,
+    forceParse: false,
+    calendarWeeks: true,
+    autoclose: true
+});
+
+$('input[name="daterange"]').daterangepicker();
 </script>
 <!-- Mainly scripts -->
 <script src="js/jquery-2.1.1.js"></script>
@@ -41,5 +41,13 @@ $(".select2_demo_1").select2();
 <!-- Custom and plugin javascript -->
 <script src="js/inspinia.js"></script>
 <script src="js/plugins/pace/pace.min.js"></script>
+
+<script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
+
+<!-- Date range use moment.js same as full calendar plugin -->
+<script src="js/plugins/fullcalendar/moment.min.js"></script>
+
+<!-- Date range picker -->
+<script src="js/plugins/daterangepicker/daterangepicker.js"></script>
 </body>
 </html>

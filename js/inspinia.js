@@ -246,13 +246,27 @@ $(document).ready(function () {
 			document.getElementById("eMail").innerHTML = firebase.auth().currentUser.email;
 		});
 	}
-    
+//    main();
 });
 
 $("#departButton").click(function(){
-	alert("TEST");
 	addDepartment(document.getElementById("departmentInput").value);
 	document.getElementById("departmentInput").value = '';
+	
+	var x = document.getElementById("snackbar");
+	x.innerHTML = document.getElementById("departmentInput").value + '추가 완료';
+	x.className = "show";
+	setTimeout(function(){x.className = x.className.replace("show", "");},3000);
+});
+
+$("#jobButton").click(function(){
+	addJob(document.getElementById("jobInput").value);
+	document.getElementById("jobInput").value = '';
+	
+	var x = document.getElementById("snackbar");
+	x.innerHTML = document.getElementById("jobInput").value + '추가 완료';
+	x.className = "show";
+	setTimeout(function(){x.className = x.className.replace("show", "");},3000);
 });
 
 // check if browser support HTML5 local storage
@@ -318,7 +332,7 @@ function signOut(){
 	firebase.auth().signOut();
 	var x = document.getElementById("snackbar");
 	x.innerHTML = 'Logout'
-		x.className = "show";
+	x.className = "show";
 	setTimeout(function(){x.className = x.className.replace("show", "");},3000);
 	document.getElementById("signButton").innerHTML = '<a data-toggle="modal" data-target="#myModal">'+
 	'<i class="fa fa-sign-out"></i>Login' +
@@ -406,7 +420,6 @@ function sample6_execDaumPostcode() {
             }
 
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
-            document.getElementById('sample6_postcode').value = data.zonecode; //5자리 새우편번호 사용
             document.getElementById('sample6_address').value = fullAddr;
 
             // 커서를 상세주소 필드로 이동한다.
@@ -418,15 +431,15 @@ function sample6_execDaumPostcode() {
 /* load window */
 
 function minor(){
-	$("#bodyPage").load("minor.html")
+	$("#bodyPage").load("minor.html");
 }
 
 function admin(){
-	$("#bodyPage").load("admin.html")
+	$("#bodyPage").load("admin.html");
 }
 
 function main(){
-	$("#bodyPage").load("main.html")
+	$("#bodyPage").load("main.html");
 }
 
 /* add User */
@@ -443,31 +456,49 @@ function writeUserData(userId, name, email, imageUrl) {
 
 function addDepartment(department){
 	var departData = {
-			department: department
+		department: department
 	};
 	
 	var newDepartmentKey = firebase.database().ref().child('departments').push().key;
 	
 	var updates = {};
 	updates['/departments/' + newDepartmentKey] = departData;
+	updates['/departments-list/' + 1 + '/' + newDepartmentKey] = departData;
+	
+	return firebase.database().ref().update(updates);
+}
+
+function addJob(job){
+	var jobData = {
+		job: job
+	};
+	
+	var newJobKey = firebase.database().ref().child('jobs').push().key;
+	
+	var updates = {};
+	updates['/jobs/' + newJobKey] = jobData;
+	updates['/jobs-list/' + 1 + '/' + newJobKey] = jobData;
 	
 	return firebase.database().ref().update(updates);
 }
 
 /* Register Form */
 
-function addUserInfo(uid, username, email, profileImg, department, job, extension, call, emergency, address, birth){
+function addUserInfo(uid, username, email, nickname, profileImg, department1, job, extension, call, emergency, phone, address, join, birth){
 	var infoData = {
 		    name: username,
 		    uid: uid,
 		    email: email,
-		    profileImg: photoURL,
-		    department: department,
+		    nickname: nickname,
+		    profileImg: profileImg,
+		    department: department1,
 		    job: job,
 		    extension: extension,
 		    call: call,
 		    emergency: emergency,
+		    phone: phone,
 		    address: address,
+		    join: join,
 		    birth: birth
 		  };
 
@@ -482,43 +513,46 @@ function addUserInfo(uid, username, email, profileImg, department, job, extensio
 		  return firebase.database().ref().update(updates);
 }
 
-function newinfoForCurrentUser(department, job, extension, call, emergency, address, birth) {
+function newinfoForCurrentUser(nickname, department1, job, extension, call, emergency, address, phone, join, birth) {
   var userId = firebase.auth().currentUser.uid;
   return firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
     var username = snapshot.val().username;
     var email = snapshot.val().email;
     var profileImg = snapshot.val().profile_picture;
-    return addUserInfo(firebase.auth().currentUser.uid,  username, email, profileImg, department, job, extension, call, emergency, address, birth);
+    return addUserInfo(firebase.auth().currentUser.uid,  username, email, nickname, profileImg, department1, job, extension, call, emergency, phone, address, join, birth);
   });
 }
 
-function department() {
-    var department = $("#department").val();
-    var job = $("job").val();
-    var extension = $("#extension").val();
-    var call = $("#call").val();
-    var emergency = $("#emergency").val();
-    var address = $("sample6_address").val() + $("#sample6_address2").val();
-    var birth = $("#year").val() + $("#month").val() + $("#day").val();
-    if (department && job && extension && call && emergency && address && birth) {
-    	newinfoForCurrentUser(department, job, extension, call, emergency, address, birth).then(function() {
-        admin();
+$("#registerBtn").click(function() {
+    var department1 = $("#department").val;
+    var job = $("#job").val;
+    var extension = $("#extension").val;
+    var nickname = $("#nickname").val;
+    var call = $("#call").val;
+    var emergency = $("#emergency").val;
+    var address = $("#sample6_address").val + $("#sample6_address2").val;
+    var birth = $("#year").val + $("#month").val + $("#day").val;
+    var phone = $("#phone").val();
+    var join = $("#join").val();
+    
+    if (department1 && job && extension && nickname && join && call && emergency && address && phone && birth) {
+    	newinfoForCurrentUser(department1, job, nickname, extension, call, emergency, phone, address, join, birth).then(function() {
         var user = firebase.auth().currentUser;
         writeUserData(user.uid, user.displayName, user.email, user.photoURL);
       });
-		department = '';
-		job = '';
-		extension = '';
-		call = '';
-		emergenct = '';
-		address = '';
-		birth = '';
+    	$("#department").val = '';
+    	$("#job").val = '';
+    	$("#extension").val = '';
+    	$("#call").val = '';
+    	$("#emergency").val = '';
+    	$("#sample6_address").val = '';
+    	$("#sample6_address2").val = '';
+    	$("#year").val = '';
+    	$("#month").val = '';
+    	$("#day").val = '';
+    	$("#phone").val = '';
+    	$("#nickname").val = '';
+    	$("#join").val = '';
     }
-  }
+  });
   
-$("#department1").select(function(e){
-	
-});
-
-/* 달력 */
-
