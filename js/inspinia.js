@@ -7,7 +7,6 @@
 
 
 $(document).ready(function () {
-	
     // Add body-small class if window less than 768px
     if ($(this).width() < 769) {
         $('body').addClass('body-small')
@@ -186,10 +185,6 @@ $(window).bind("resize", function () {
 // Set proper body class and plugins based on user configuration
 $(document).ready(function () {
 	
-	$(document).one({
-		load: function(){ $("#bodyPage").load("main.html")}
-	})
-	
     if (localStorageSupport()) {
 
         var collapse = localStorage.getItem("collapse_menu");
@@ -244,7 +239,7 @@ $(document).ready(function () {
 		'<i class="fa fa-sign-out"></i>Login' +
 		'</a>';
 	} else {
-		document.getElementById("signButton").innerHTML = '<a onclick="signOut()"><i class="fa fa-sign-out">&nbsp;Logout</i></a>';
+		document.getElementById("signButton").innerHTML = '<a onclick="signOut()"><i class="fa fa-sign-out"></i>&nbsp;Logout</a>';
 		document.getElementById("signButton1").innerHTML = '<a onclick="signOut()">Logout</a>';
 		firebase.auth().onAuthStateChanged(function(user) {
 			document.getElementById("userName").innerHTML = firebase.auth().currentUser.displayName;
@@ -253,12 +248,12 @@ $(document).ready(function () {
 	}
     
 });
-$("#departButton").click = function(e) {
-	e.preventDefault();
-	alert("Submit Click");
+
+$("#departButton").click(function(){
+	alert("TEST");
 	addDepartment(document.getElementById("departmentInput").value);
 	document.getElementById("departmentInput").value = '';
-}
+});
 
 // check if browser support HTML5 local storage
 function localStorageSupport() {
@@ -339,41 +334,40 @@ function signIn(){
 	var provider = new firebase.auth.GoogleAuthProvider();
 	firebase.auth().signInWithPopup(provider);
 	
-	var userId = firebase.auth().currentUser.uid;
-	firebase.database().ref('/user-infos/' + userId).on('value', function(snapshot){
-		if(snapshot.val() != null){
-			alert(snapshot.val());
-			$('#myModal').modal('hide');
-			var x = document.getElementById("snackbar");
-			x.innerHTML = 'Login'
-			x.className = "show";
-			setTimeout(function(){x.className = x.className.replace("show", "");},3000);
-			document.getElementById("signButton").innerHTML = '<a onclick="signOut()"><i class="fa fa-sign-out"></i>&nbsp;Logout</a>';
-			document.getElementById("signButton1").innerHTML = '<a onclick="signOut()">Logout</a>';
-			firebase.auth().onAuthStateChanged(function(user) {
-				var user = firebase.auth().currentUser;
+	firebase.auth().onAuthStateChanged(function(user) {
+		var uid = firebase.auth().currentUser.uid;
+		firebase.database().ref('/user-infos/' + uid).on('value', function(snapshot){
+			if(snapshot.val() != null){
+				alert(snapshot.val());
+				$('#myModal').modal('hide');
+				var x = document.getElementById("snackbar");
+				x.innerHTML = 'Login'
+				x.className = "show";
+				setTimeout(function(){x.className = x.className.replace("show", "");},3000);
+				document.getElementById("signButton").innerHTML = '<a onclick="signOut()"><i class="fa fa-sign-out"></i>&nbsp;Logout</a>';
+				document.getElementById("signButton1").innerHTML = '<a onclick="signOut()">Logout</a>';
 				document.getElementById("userName").innerHTML = firebase.auth().currentUser.displayName;
 				document.getElementById("eMail").innerHTML = firebase.auth().currentUser.email;
-			});
-		} else {
-			$('#myModal').modal('hide');
-			$('#myModal1').modal('show');
-			var user = firebase.auth().currentUser;
-			document.getElementById("usernameInput").value = user.displayName;
-			document.getElementById("emailInput").value = user.email;
-			document.getElementById("profileImg").src = user.photoURL;
-			document.getElementById("department").value = '';
-			document.getElementById("job").value = '';
-			document.getElementById("extension").value= '';
-			document.getElementById("call").value = '';
-			document.getElementById("emergency").value = '';
-			document.getElementById("sample6_address").value = '';
-			document.getElementById("sample6_address2").value = '';
-			document.getElementById("year").value = '년도';
-			document.getElementById("month").value = '월';
-			document.getElementById("day").value = '일';
-//			writeUserData(user.uid, user.displayName, user.email, user.photoURL);
-		}
+				writeUserData(user.uid, user.displayName, user.email, user.photoURL);
+			} else {
+				$('#myModal').modal('hide');
+				$('#myModal1').modal('show');
+				var user = firebase.auth().currentUser;
+				document.getElementById("usernameInput").value = user.displayName;
+				document.getElementById("emailInput").value = user.email;
+				document.getElementById("profileImg").src = user.photoURL;
+				document.getElementById("department").value = '';
+				document.getElementById("job").value = '';
+				document.getElementById("extension").value= '';
+				document.getElementById("call").value = '';
+				document.getElementById("emergency").value = '';
+				document.getElementById("sample6_address").value = '';
+				document.getElementById("sample6_address2").value = '';
+				document.getElementById("year").value = '년도';
+				document.getElementById("month").value = '월';
+				document.getElementById("day").value = '일';
+			}
+		});
 	});
 }
 
