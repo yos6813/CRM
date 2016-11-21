@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
@@ -15,12 +15,82 @@
 <link href="css/plugins/datapicker/datepicker3.css">
 </head>
 <body>
-<div class="form-group" id="data_1">
-    <label class="font-noraml">Simple data input format</label>
-    <div class="input-group date">
-        <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" value="03/04/2014">
+<form id="registerForm" class="m-t" role="form">
+	<div class="form-group">
+           <img id="profileImg" class="img-circle" src="" />
     </div>
-</div>
+    <div class="form-group">
+        <input id="usernameInput" type="text" class="form-control" placeholder="이름" readonly>
+    </div>
+    <div class="form-group">
+        <input id="emailInput" type="email" class="form-control" placeholder="이메일" readonly>
+    </div>
+    <div class="form-group">
+        <input id="nickname" type="text" class="form-control" placeholder="사내닉네임" required>
+    </div>
+	<div class="form-group">
+	<div class="btn-group">
+		<input id="department" type="text" class="form-control" placeholder="부서(*)"  required>
+		<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">선택 <span class="caret"></span></button>
+        <ul id="department1" class="dropdown-menu">
+            <li><a id="departmentList"></a></li>
+        </ul>			 		
+    </div>
+    </div>
+    <div class="form-group">
+    <div class="btn-group">
+		<input id="job" type="text" class="form-control" placeholder="직책(*)"  required>
+		<button data-toggle="dropdown" class="btn btn-default dropdown-toggle">선택 <span class="caret"></span></button>
+               <ul id="job1" class="dropdown-menu">
+                   <li><a id="jobList"></a></li>
+               </ul>
+     </div>
+     </div>
+	 <div class="form-group">
+	    <input id="extension" type="text" class="form-control" placeholder="내선번호(*)" required>
+	 </div>
+     <div class="form-group">
+         <input id="phone" type="text" class="form-control" data-mask="(999) 9999-9999" placeholder="휴대전화(*)" required>
+     </div>
+     <div class="form-group">
+         <input id="call" type="text" class="form-control" data-mask="(999) 9999-9999" placeholder="전화번호(*)" required>
+     </div>
+     <div class="form-group">
+         <input id="emergency" type="text" class="form-control" data-mask="(999) 9999-9999" placeholder="비상연락처">
+     </div>
+     <div class="form-group">
+         <input type="text" class="form-control" id="sample6_address" placeholder="주소">
+		<input type="text" class="w-150 form-control" id="sample6_address2" placeholder="상세주소">
+		<button id="address" onclick="sample6_execDaumPostcode()" class="btn btn-default" type="button">
+			<i class="fa fa-search"></i>&nbsp;&nbsp;주소검색</button>
+		            </div>
+		            <div class="form-group" id="data_1">
+		    <div class="input-group date">
+		        <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input id="join" type="text" class="form-control" value="03/04/2014">
+		    </div>
+		</div>
+        <div class="form-group">
+            <div class="btn-group">
+               <button data-toggle="dropdown" class="w-150 btn btn-default dropdown-toggle">년도 <span class="caret"></span></button>
+               <ul id="year" class="dropdown-menu">
+                   <li><a href="#"></a></li>
+               </ul>
+           </div>
+         <div class="btn-group">
+             <button data-toggle="dropdown" class="btn btn-default dropdown-toggle">월 <span class="caret"></span></button>
+             <ul id="month" class="dropdown-menu">
+                 <li><a href="#"></a></li>
+             </ul>
+         </div>
+         <div class="btn-group">
+             <button data-toggle="dropdown" class="btn btn-default dropdown-toggle">일 <span class="caret"></span></button>
+             <ul id="day" class="dropdown-menu">
+                 <li><a href="#"></a></li>
+             </ul>
+         </div>
+      </div>
+      <input type="button" id="registerBtn" class="btn btn-primary block full-width m-b" value="Register">
+</form>
 <script type="text/javascript">
 $('#data_1 .input-group.date').datepicker({
     todayBtn: "linked",

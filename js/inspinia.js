@@ -431,7 +431,7 @@ function sample6_execDaumPostcode() {
 /* load window */
 
 function minor(){
-	$("#bodyPage").load("minor.html");
+	$("#bodyPage").load("formTest.html");
 }
 
 function admin(){
@@ -463,7 +463,7 @@ function addDepartment(department){
 	
 	var updates = {};
 	updates['/departments/' + newDepartmentKey] = departData;
-	updates['/departments-list/' + 1 + '/' + newDepartmentKey] = departData;
+	updates['/departments-list/' + 1 + "/" + newDepartmentKey] = departData;
 	
 	return firebase.database().ref().update(updates);
 }
@@ -477,20 +477,20 @@ function addJob(job){
 	
 	var updates = {};
 	updates['/jobs/' + newJobKey] = jobData;
-	updates['/jobs-list/' + 1 + '/' + newJobKey] = jobData;
+//	updates['/jobs-list/' + 1 + '/' + newJobKey] = jobData;
 	
 	return firebase.database().ref().update(updates);
 }
 
 /* Register Form */
 
-function addUserInfo(uid, username, email, nickname, profileImg, department1, job, extension, call, emergency, phone, address, join, birth){
+function addUserInfo(uid, username, email, profileImg, nickname, department1, job, extension, call, emergency, phone, address, join, birth){
 	var infoData = {
+			uid: uid,
 		    name: username,
-		    uid: uid,
 		    email: email,
-		    nickname: nickname,
 		    profileImg: profileImg,
+		    nickname: nickname,
 		    department: department1,
 		    job: job,
 		    extension: extension,
@@ -502,10 +502,8 @@ function addUserInfo(uid, username, email, nickname, profileImg, department1, jo
 		    birth: birth
 		  };
 
-		  // Get a key for a new Post.
 		  var newInfoKey = firebase.database().ref().child('infos').push().key;
 
-		  // Write the new post's data simultaneously in the posts list and the user's post list.
 		  var updates = {};
 		  updates['/infos/' + newInfoKey] = infoData;
 		  updates['/user-infos/' + uid + '/' + newInfoKey] = infoData;
@@ -519,15 +517,15 @@ function newinfoForCurrentUser(nickname, department1, job, extension, call, emer
     var username = snapshot.val().username;
     var email = snapshot.val().email;
     var profileImg = snapshot.val().profile_picture;
-    return addUserInfo(firebase.auth().currentUser.uid,  username, email, nickname, profileImg, department1, job, extension, call, emergency, phone, address, join, birth);
+    return addUserInfo(userId, username, email, profileImg, nickname, department1, job, extension, call, emergency, phone, address, join, birth);
   });
 }
 
 $("#registerBtn").click(function() {
+	var nickname = $("#nickname").val;
     var department1 = $("#department").val;
     var job = $("#job").val;
     var extension = $("#extension").val;
-    var nickname = $("#nickname").val;
     var call = $("#call").val;
     var emergency = $("#emergency").val;
     var address = $("#sample6_address").val + $("#sample6_address2").val;
@@ -536,10 +534,11 @@ $("#registerBtn").click(function() {
     var join = $("#join").val();
     
     if (department1 && job && extension && nickname && join && call && emergency && address && phone && birth) {
-    	newinfoForCurrentUser(department1, job, nickname, extension, call, emergency, phone, address, join, birth).then(function() {
-        var user = firebase.auth().currentUser;
-        writeUserData(user.uid, user.displayName, user.email, user.photoURL);
+    	newinfoForCurrentUser(nickname, department1, job, extension, call, emergency, phone, address, join, birth).then(function() {
+        var uId = firebase.auth().currentUser.uid;
+        writeUserData(uId, user.displayName, user.email, user.photoURL);
       });
+    	$("#nickname").val = '';
     	$("#department").val = '';
     	$("#job").val = '';
     	$("#extension").val = '';
@@ -551,8 +550,33 @@ $("#registerBtn").click(function() {
     	$("#month").val = '';
     	$("#day").val = '';
     	$("#phone").val = '';
-    	$("#nickname").val = '';
     	$("#join").val = '';
     }
   });
-  
+
+/* 부서, 직책 드롭다운 */
+
+$('#myModal1').ready(function(){
+
+		firebase.database().ref("departments/").orderByKey().endAt("department").on("child_added", function(snapshot){
+				snapshot.forEach(function(data){
+					$('#department1').append('<li><a value="' + data.val() + '">' + data.val()
+							+ '</a></li>');
+			})
+			$('#department1 a').on('click', function(){
+				$('#department').val($(this).attr('value'));
+			})
+		})
+		
+		firebase.database().ref("jobs/").orderByKey().endAt("job").on("child_added", function(snapshot){
+				snapshot.forEach(function(data){
+					$('#job1').append('<li><a value="' + data.val() + '">' + data.val()
+							+ '</a></li>');
+			})
+			$('#job1 a').on('click', function(){
+				$('#job').val($(this).attr('value'));
+			})
+		})
+	
+		
+})

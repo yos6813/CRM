@@ -322,7 +322,7 @@
 					}]
 				];
 			}
-			else if (this.element.is('div')){  // inline datepicker
+			else if (this.element.is('#calendar')){  // inline datepicker
 				this.isInline = true;
 			}
 			else {
@@ -406,10 +406,10 @@
 				}, this)
 			});
 		},
-
+		
 		show: function(){
 			if (!this.isInline)
-				this.picker.appendTo('body');
+				this.picker.appendTo('#calendar');
 			this.picker.show();
 			this.place();
 			this._attachSecondaryEvents();
@@ -543,14 +543,15 @@
 			var calendarWidth = this.picker.outerWidth(),
 				calendarHeight = this.picker.outerHeight(),
 				visualPadding = 10,
-				windowWidth = $window.width(),
-				windowHeight = $window.height(),
-				scrollTop = $window.scrollTop();
+				windowWidth = $('#myModal1').width(),
+				windowHeight = $('#myModal1').height(),
+				scrollTop = $('#myModal1').scrollTop();
+			var myModal = $("#myModal1");
 
 			var zIndex = parseInt(this.element.parents().filter(function(){
 					return $(this).css('z-index') !== 'auto';
 				}).first().css('z-index'))+10;
-			var offset = this.component ? this.component.parent().offset() : this.element.offset();
+			var offset = this.component ? myModal.offset() : this.element.offset();
 			var height = this.component ? this.component.outerHeight(true) : this.element.outerHeight(false);
 			var width = this.component ? this.component.outerWidth(true) : this.element.outerWidth(false);
 			var left = offset.left,
