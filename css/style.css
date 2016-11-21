@@ -107,6 +107,8 @@ h5 {
   text-shadow: none;
   top: 100%;
   z-index: 1000;
+  overflow: auto;
+  height: 100px;
 }
 .dropdown-menu > li > a {
   border-radius: 3px;
@@ -8459,4 +8461,17 @@ body.md-skin {
 
 #myModal1{
   overflow: auto;
+}
+
+#year1, #month1, #day1{
+	float: left;
+}
+
+#birth2, #birth3{
+	float: left;
+	width: 50px;
+}
+#birth1{
+	float: left;
+	width: 80px;
 }

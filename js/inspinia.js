@@ -463,7 +463,6 @@ function addDepartment(department){
 	
 	var updates = {};
 	updates['/departments/' + newDepartmentKey] = departData;
-	updates['/departments-list/' + 1 + "/" + newDepartmentKey] = departData;
 	
 	return firebase.database().ref().update(updates);
 }
@@ -477,7 +476,6 @@ function addJob(job){
 	
 	var updates = {};
 	updates['/jobs/' + newJobKey] = jobData;
-//	updates['/jobs-list/' + 1 + '/' + newJobKey] = jobData;
 	
 	return firebase.database().ref().update(updates);
 }
@@ -554,7 +552,7 @@ $("#registerBtn").click(function() {
     }
   });
 
-/* 부서, 직책 드롭다운 */
+/* 부서, 직책, 생년월일 드롭다운 */
 
 $('#myModal1').ready(function(){
 
@@ -577,6 +575,33 @@ $('#myModal1').ready(function(){
 				$('#job').val($(this).attr('value'));
 			})
 		})
-	
 		
+		var today = new Date();
+		var toyear = parseInt(today.getFullYear());
+		var start = toyear - 5;
+		var end = toyear - 70;
+		
+		for(var i=toyear; i>=end; i--){
+			$('#year').append('<li><a value="' + i + '">' + i + '</a></li>');
+		}
+		
+		for(var i=1; i<=12; i++){
+			$('#month').append('<li><a value="' + i + '">' + i + '</a></li>');
+		}
+		
+		for(var i=1;i<=31;i++){
+			$('#day').append('<li><a value="' + i + '">' + i + '</a></li>');
+		}
+		
+		$('#year a').on('click', function(){
+			$('#birth1').val($(this).attr('value'));
+		})
+		
+		$('#month a').on('click', function(){
+			$('#birth2').val($(this).attr('value'));
+		})
+		
+		$('#day a').on('click', function(){
+			$('#birth3').val($(this).attr('value'));
+		})
 })
