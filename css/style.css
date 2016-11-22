@@ -47,7 +47,7 @@ h5 {
 }
 .nav > li > a {
   color: #a7b1c2;
-  font-weight: bold;
+/*   font-weight: bold; */
   padding: 14px 20px 14px 25px;
 }
 .nav.navbar-right > li > a {
@@ -8474,4 +8474,10 @@ body.md-skin {
 #birth1{
 	float: left;
 	width: 80px;
+}
+
+.text-center .img-circle{
+	border-radius: 50%;
+	width: 118px;
+	height: 118px;
 }

@@ -1,53 +1,79 @@
-<!-- <!DOCTYPE html> -->
-<!-- <html> -->
-<!-- <head> -->
-<!-- <meta charset="EUC-KR"> -->
-<!-- <title>list</title> -->
-<!-- </head> -->
-<!-- <body> -->
+<meta charset="utf-8">
 <div class="wrapper wrapper-content animated fadeInRight">
-	<div class="mail-box">
-	<div class="mail-box-header">
-	    <form method="get" action="index.html" class="pull-right mail-search">
-	        <div class="input-group">
-	            <input type="text" class="form-control input-sm" name="search" placeholder="Search email">
-	            <div class="input-group-btn">
-	                <button type="submit" class="btn btn-sm btn-primary">
-	                    Search
-	                </button>
+	<div class="ibox-content">
+	    <div class="row">
+	        <div class="col-sm-5 m-b-xs"><select class="input-sm form-control input-s-sm inline">
+	            <option value="0">Option 1</option>
+	            <option value="1">Option 2</option>
+	            <option value="2">Option 3</option>
+	            <option value="3">Option 4</option>
+	        </select>
+	        </div>
+	        <div class="col-sm-4 m-b-xs">
+	            <div data-toggle="buttons" class="btn-group">
+	                <label class="btn btn-sm btn-white"> <input type="radio" id="option1" name="options"> Day </label>
+	                <label class="btn btn-sm btn-white active"> <input type="radio" id="option2" name="options"> Week </label>
+	                <label class="btn btn-sm btn-white"> <input type="radio" id="option3" name="options"> Month </label>
 	            </div>
 	        </div>
-	    </form>
-	    <h2>
-	        Inbox (16)
-	    </h2>
-	    <div class="mail-tools tooltip-demo m-t-md">
-	        <div class="btn-group pull-right">
-	            <button class="btn btn-white btn-sm"><i class="fa fa-arrow-left"></i></button>
-	            <button class="btn btn-white btn-sm"><i class="fa fa-arrow-right"></i></button>
-	
+	        <div class="col-sm-3">
+	            <div class="input-group"><input type="text" placeholder="Search" class="input-sm form-control"> <span class="input-group-btn">
+	                <button type="button" class="btn btn-sm btn-primary"> Go!</button> </span></div>
 	        </div>
-	        <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="left" title="Refresh inbox"><i class="fa fa-refresh"></i> Refresh</button>
-	        <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Mark as read"><i class="fa fa-eye"></i> </button>
-	        <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Mark as important"><i class="fa fa-exclamation"></i> </button>
-	        <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Move to trash"><i class="fa fa-trash-o"></i> </button>
-	
+	    </div>
+	    <div class="table-responsive">
+	        <table class="table table-striped">
+	            <thead>
+	            <tr>
+	                <th></th>
+	                <th>제목 </th>
+	                <th>글쓴이 </th>
+	                <th>질문유형</th>
+	                <th>날짜</th>
+	                <th>진행상황</th>
+	            </tr>
+	            </thead>
+	            <tbody>
+	            <tr>
+	                <td><input type="checkbox"  checked class="i-checks" name="input[]"></td>
+	                <td>Project<small>This is example of project</small></td>
+	                <td><span class="pie">0.52/1.561</span></td>
+	                <td>20%</td>
+	                <td>Jul 14, 2013</td>
+	                <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
+	            </tr>
+	            <tr>
+	                <td><input type="checkbox" class="i-checks" name="input[]"></td>
+	                <td>Alpha project</td>
+	                <td><span class="pie">6,9</span></td>
+	                <td>40%</td>
+	                <td>Jul 16, 2013</td>
+	                <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
+	            </tr>
+	            <tr>
+	                <td><input type="checkbox" class="i-checks" name="input[]"></td>
+	                <td>Betha project</td>
+	                <td><span class="pie">3,1</span></td>
+	                <td>75%</td>
+	                <td>Jul 18, 2013</td>
+	                <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
+	            </tr>
+	            <tr>
+	                <td><input type="checkbox" class="i-checks" name="input[]"></td>
+	                <td>Gamma project</td>
+	                <td><span class="pie">4,9</span></td>
+	                <td>18%</td>
+	                <td>Jul 22, 2013</td>
+	                <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
+	            </tr>
+	            </tbody>
+	        </table>
 	    </div>
 	</div>
-		<table class="table table-hover table-mail">
-			<tbody>
-				<tr class="unread">
-				    <td class="check-mail">
-				        <input type="checkbox" class="i-checks">
-				    </td>
-				    <td class="mail-ontact"><a href="mail_detail.html">Anna Smith</a></td>
-				    <td class="mail-subject"><a href="mail_detail.html">Lorem ipsum dolor noretek imit set.</a></td>
-				    <td class=""><i class="fa fa-paperclip"></i></td>
-				    <td class="text-right mail-date">6.10 AM</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
 </div>
-<!-- </body> -->
-<!-- </html> -->
+<script>
+$('.i-checks').iCheck({
+    checkboxClass: 'icheckbox_square-green',
+    radioClass: 'iradio_square-green',
+});
+</script>
