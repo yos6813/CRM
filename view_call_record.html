@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>At&amp;P Partners Intranet</title>
+    <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="css/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css" rel="stylesheet">
+    <!-- FooTable -->
+    <link href="css/plugins/footable/footable.core.css" rel="stylesheet">
+    <link href="css/plugins/summernote/summernote.css" rel="stylesheet">
+    <link href="css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav metismenu" id="side-menu">
+                    <li class="nav-header">
+                        <div class="dropdown profile-element">
+                            <span><img alt="image" class="img-circle" src="img/profile_small.jpg" /></span>
+
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <span class="clear">
+                                  <span class="block m-t-xs"> <strong class="font-bold">원정연</strong><b class="caret"></b></span>
+                                <span class="text-muted text-xs block">Warren Won</span>
+                                <span class="text-muted text-xs block">IT팀</span>
+                                </span>
+                            </a>
+
+                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                                <li><a href="profile.html">내정보</a></li>
+                                <li class="divider"></li>
+                                <li><a href="login.html">Logout</a></li>
+                            </ul>
+                        </div>
+                        <div class="logo-element">
+                            ATNP
+                        </div>
+                    </li>
+
+                    <li class="active">
+                        <a href="#"><i class="fa fa-users"></i> <span class="nav-label">CRM</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a href="graph_morris.html">CR Dashboard</a></li>
+                            <li class="active">
+                                <a href="#">YETA 고객상담 <span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li class="active">
+                                        <a href="#">2016</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">2017</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><a href="projects.html">CR 활동</a></li>
+                            <li><a href="graph_flot.html">고객관리</a></li>
+                            <li><a href="graph_flot.html">계약서관리</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="gray-bg">
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top  " role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header">
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                        <form role="search" class="navbar-form-custom" action="search_results.html">
+                            <div class="form-group">
+                                <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
+                            </div>
+                        </form>
+                    </div>
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                                <i class="fa fa-bell"></i> <span class="label label-primary">8</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-alerts">
+                                <li>
+                                    <a href="mailbox.html">
+                                        <div>
+                                            <i class="fa fa-envelope fa-fw"></i> You have 16 messages
+                                            <span class="pull-right text-muted small">4 minutes ago</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="profile.html">
+                                        <div>
+                                            <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+                                            <span class="pull-right text-muted small">12 minutes ago</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="grid_options.html">
+                                        <div>
+                                            <i class="fa fa-upload fa-fw"></i> Server Rebooted
+                                            <span class="pull-right text-muted small">4 minutes ago</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <div class="text-center link-block">
+                                        <a href="notifications.html">
+                                            <strong>See All Alerts</strong>
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+
+
+                        <li>
+                            <a href="login.html">
+                                <i class="fa fa-sign-out"></i> Log out
+                            </a>
+                        </li>
+                    </ul>
+
+                </nav>
+            </div>
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-sm-4">
+                    <h2>2016</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.html">Home</a>
+                        </li>
+                        <li>
+                            CRM
+                        </li>
+                        <li class="active">
+                            <strong>YETA 고객상담 </strong>
+                        </li>
+
+                    </ol>
+                </div>
+            </div>
+
+
+
+            <div class="wrapper wrapper-content">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-content mailbox-content">
+                                <div class="file-manager">
+
+                                    <h5>Status</h5>
+                                    <a class="btn btn-block btn-primary btn-outline " href="">접수</a>
+                                    <!-- <div class="btn-group btn-block">
+                                        <button data-toggle="dropdown" class="btn  btn-primary btn-outline dropdown-toggle">해결 <span class="caret"></span></button>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="#">접수</a></li>
+                                            <li><a href="#" class="font-bold">해결</a></li>
+                                            <li><a href="#">보류</a></li>
+                                        </ul>
+                                    </div> -->
+                                    <div class="space-25"></div>
+
+                                    <h5>Client Information</h5>
+                                    <ul class="folder-list m-b-md" style="padding: 0">
+                                        <li>
+                                            <a href="mailbox.html"> <i class="fa fa-building-o "></i> 고객사 <span class="pull-right">(주)SK텔레콤</span> </a>
+                                        </li>
+                                        <li><a href=""><i class="fa fa-flag-o "></i> 고객구분
+                                      <span class="pull-right">
+                                        <span class="badge badge-success"> Y </span>
+                                        <span class="badge badge-info"> A </span>
+                                        <span class="badge badge-warning"> C </span>
+                                      </span>
+                                    </a></li>
+                                        <li>
+                                            <a href="mailbox.html"> <i class="fa fa-user"></i> 담당자 <span class="pull-right">조현아 대리</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="mailbox.html"> <i class="fa fa-phone"></i> 연락처 <span class="pull-right">02-1234-1234</span></a>
+                                        </li>
+                                    </ul>
+                                    <h5>Categories</h5>
+                                    <ul class="category-list" style="padding: 0">
+                                        <li>
+                                            <a href="#"> <i class="fa fa-circle text-navy"></i> 세법 </a>
+                                        </li>
+                                        <li>
+                                            <a href="#"> <i class="fa fa-circle text-danger"></i> 시스템</a>
+                                        </li>
+                                        <li>
+                                            <a href="#"> <i class="fa fa-circle text-primary"></i> 운용</a>
+                                        </li>
+                                        <li>
+                                            <a href="#"> <i class="fa fa-circle text-info"></i> 기타</a>
+                                        </li>
+                                    </ul>
+
+                                    <h5 class="tag-title">Tags</h5>
+                                    <ul class="tag-list" style="padding: 0">
+                                        <li><a href=""><i class="fa fa-tag"></i> 부양가족</a></li>
+                                        <li><a href=""><i class="fa fa-tag"></i> 교육비</a></li>
+                                        <li><a href=""><i class="fa fa-tag"></i> PDF</a></li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 animated fadeInRight">
+                        <div class="mail-box-header">
+                            <div class="pull-right tooltip-demo">
+                                <a href="mail_compose.html" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Reply"><i class="fa fa-pencil"></i> 수정</a>
+                                <a href="mailbox.html" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Move to trash"><i class="fa fa-trash-o"></i> 삭제</a>
+                            </div>
+                            <h2 class="font-bold">
+                            부양가족 교육비 공제
+                          </h2>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="small text-right">
+                                        <div> 접수: 원정연 (16.12.11 오후 2시 30분)</div>
+                                        <div> 수정: 원정연 (16.12.11 오후 2시 35분)</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mail-box">
+                            <div class="mail-body">
+                                <p><b>문의내용</b></p>
+                                <p>&nbsp; &nbsp; 연말정산 시 형제자매(대학생)의 교육비 공제 가능 여부<b><br></b></p>
+                                <p><b>답변내용</b></p>
+                                <p>&nbsp; &nbsp; 형제자매의 교육비는 나이를 제외한 기본공제요건(생계, 소득)을 만족할 시 공제 가능<b><br></b></p>
+                            </div>
+                            <div class="mail-attachment">
+                                <p>
+                                    <span><i class="fa fa-paperclip"></i> 첨부파일</span>
+                                </p>
+
+                                <div class="attachment">
+                                    <div class="file-box">
+                                        <div class="file">
+                                            <a href="#">
+                                                <span class="corner"></span>
+
+                                                <div class="image">
+                                                    <img alt="image" class="img-responsive" src="img/p1.jpg">
+                                                </div>
+                                                <div class="file-name">
+                                                    Italy street.jpg
+                                                    <br/>
+                                                    <small>Added: Jan 6, 2014</small>
+                                                </div>
+                                            </a>
+
+                                        </div>
+                                    </div>
+                                    <div class="file-box">
+                                        <div class="file">
+                                            <a href="#">
+                                                <span class="corner"></span>
+
+                                                <div class="image">
+                                                    <img alt="image" class="img-responsive" src="img/p2.jpg">
+                                                </div>
+                                                <div class="file-name">
+                                                    My feel.png
+                                                    <br/>
+                                                    <small>Added: Jan 7, 2014</small>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                            <div class="mail-body tooltip-demo">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <h4>댓글:</h4>
+                                        <div class="social-footer">
+                                            <div class="social-comment">
+                                                <a href="" class="pull-left">
+                                                    <img alt="image" src="img/profile_small.jpg">
+                                                </a>
+                                                <div class="media-body">
+                                                    <a href="#">
+                                                  원정연
+                                              </a>
+                                                    <small class="text-muted">12.06.2014</small>
+                                                    <br/> 오늘 오후까지 PIP에서 직접 연락하여 처리하기로 약속함
+                                                    <br/>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="social-comment">
+                                                <a href="" class="pull-left">
+                                                    <img alt="image" src="img/profile_small.jpg">
+                                                </a>
+                                                <div class="media-body">
+                                                    <a href="#">
+                                                  원정연
+                                              </a>
+                                                    <small class="text-muted">12.06.2014</small>
+                                                    <br/> PIP에서 연락하여 처리 완료
+                                                    <br/>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="social-comment">
+                                                <a href="" class="pull-left">
+                                                    <img alt="image" src="img/a3.jpg">
+                                                </a>
+                                                <div class="media-body">
+                                                    <div class="input-group">
+                                                        <textarea class="form-control" placeholder="댓글 작성....."></textarea>
+                                                        <span class="input-group-btn">
+                                                      <button type="button" class="btn btn-primary btn-lg">올리기</button>
+                                                    </span>
+                                                    </div>
+                                                    <!-- <textarea class="form-control" placeholder="Write comment..."></textarea> -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="clearfix"></div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+
+                <div>
+                    <strong>Copyright</strong> At&amp;P Partners &copy; 2015-2017
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+    <!-- Mainly scripts -->
+    <script src="js/jquery-2.1.1.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- FooTable -->
+    <script src="js/plugins/footable/footable.all.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="js/inspinia.js"></script>
+    <script src="js/plugins/pace/pace.min.js"></script>
+
+    <!-- Page-Level Scripts -->
+    <script>
+        $(document).ready(function() {
+
+            $('.footable').footable();
+            $('.footable2').footable();
+
+        });
+    </script>
+
+    <!-- iCheck -->
+    <script src="js/plugins/iCheck/icheck.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+
+            $('#loading-example-btn').click(function() {
+                btn = $(this);
+                simpleLoad(btn, true)
+
+                // Ajax example
+                //                $.ajax().always(function () {
+                //                    simpleLoad($(this), false)
+                //                });
+
+                simpleLoad(btn, false)
+            });
+        });
+
+        function simpleLoad(btn, state) {
+            if (state) {
+                btn.children().addClass('fa-spin');
+                btn.contents().last().replaceWith(" Loading");
+            } else {
+                setTimeout(function() {
+                    btn.children().removeClass('fa-spin');
+                    btn.contents().last().replaceWith(" Refresh");
+                }, 2000);
+            }
+        }
+    </script>
+
+
+    <!-- Typehead -->
+    <script src="js/plugins/typehead/bootstrap3-typeahead.min.js"></script>
+
+
+    <script>
+        $(document).ready(function() {
+
+
+            $('.typeahead_1').typeahead({
+                source: [{
+                    "name": "(주)SK텔레콤"
+                }, {
+                    "name": "(주)현대모비스"
+                }, {
+                    "name": "(주)린나이"
+                }, ]
+            });
+
+
+            $('.typeahead_2').typeahead({
+                source: [{
+                    "name": "김현아"
+                }, {
+                    "name": "조수진"
+                }, {
+                    "name": "이형태"
+                }, ]
+            });
+
+
+
+        });
+    </script>
+    <!-- SUMMERNOTE -->
+    <script src="js/plugins/summernote/summernote.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+
+            $('.summernote').summernote();
+
+        });
+    </script>
+    <script src="js/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
+    <script>
+        $(document).ready(function() {
+
+            $('.tagsinput').tagsinput({
+                tagClass: 'label label-primary'
+            });
+        });
+    </script>
+    <script src="app.js"></script>
+</body>
+
+</html>

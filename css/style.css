@@ -1,7 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700");
 @import url("https://fonts.googleapis.com/css?family=Roboto:400,300,500,700");
 @import url(https://fonts.googleapis.com/earlyaccess/jejugothic.css);
-
 /*
  *
  *   INSPINIA - Responsive Admin Theme
@@ -12,6 +11,7 @@
 *{
 	font-family: 'Jeju Gothic', sans-serif;
 }
+
 
 h1,
 h2,
@@ -47,7 +47,7 @@ h5 {
 }
 .nav > li > a {
   color: #a7b1c2;
-/*   font-weight: bold; */
+/*   font-weight: 600; */
   padding: 14px 20px 14px 25px;
 }
 .nav.navbar-right > li > a {
@@ -107,8 +107,6 @@ h5 {
   text-shadow: none;
   top: 100%;
   z-index: 1000;
-  overflow: auto;
-  height: 100px;
 }
 .dropdown-menu > li > a {
   border-radius: 3px;
@@ -4459,7 +4457,7 @@ a.close-canvas-menu:hover {
   animation: none;
 }
 body.fullscreen-ibox-mode {
-  overflow-y: scroll;
+  overflow-y: hidden;
 }
 .ibox.fullscreen {
   z-index: 2030;
@@ -5048,9 +5046,16 @@ a.compose-mail {
   width: 23%;
 }
 /* PROJECTS */
-.project-people,
 .project-actions {
   text-align: right;
+  vertical-align: middle;
+}
+.project-clientcategory {
+  text-align: left;
+  vertical-align: middle;
+}
+.project-people{
+  text-align: left;
   vertical-align: middle;
 }
 dd.project-people {
@@ -5062,6 +5067,11 @@ dd.project-people {
   height: 32px;
 }
 .project-title a {
+  font-size: 14px;
+  color: #676a6c;
+  font-weight: 600;
+}
+.project-category {
   font-size: 14px;
   color: #676a6c;
   font-weight: 600;
@@ -7464,7 +7474,7 @@ body.rtls.top-navigation .footer.fixed {
   body.rtls .navbar-top-links li:last-child {
     margin-left: 20px;
   }
-  .body-small.rtls #page-wrapper{
+  .body-small.rtls #page-wrapper {
     position: inherit;
     margin: 0 0 0 0;
     min-height: 1000px;
@@ -8279,7 +8289,6 @@ body.md-skin {
     margin: 0 0 0 220px;
     min-height: 1200px;
   }
-  
   .navbar-static-side {
     z-index: 2001;
     position: absolute;
@@ -8480,4 +8489,4 @@ body.md-skin {
 	border-radius: 50%;
 	width: 118px;
 	height: 118px;
-}
+

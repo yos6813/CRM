@@ -4,8 +4,6 @@
  *   version 2.6
  *
  */
-
-
 $(document).ready(function () {
     // Add body-small class if window less than 768px
     if ($(this).width() < 769) {
@@ -184,14 +182,12 @@ $(window).bind("resize", function () {
 // Local Storage functions
 // Set proper body class and plugins based on user configuration
 $(document).ready(function () {
-	
 	$('#side-menu li').click(function(){
 		$('#side-menu li').removeClass('active');
 		
 		$(this).addClass('active');
 	})
 	
-	$("#bodyPage").load("main.html");
 	
     if (localStorageSupport()) {
 
@@ -239,38 +235,26 @@ $(document).ready(function () {
     }
     
     /* 로그인 or 로그아웃  */
-    if(firebase.auth().currentUser == null){
-    	document.getElementById("signButton").innerHTML = '';
-		document.getElementById("signButton1").innerHTML = '';
-		document.getElementById("signButton1").innerHTML = '<li><a data-toggle="modal" data-target="#myModal">Login</a></li>';
-		document.getElementById("userName").innerHTML = '로그인을 해주세요.';
-		document.getElementById("eMail").innerHTML = '';
-		document.getElementById("signButton").innerHTML = '<a data-toggle="modal" data-target="#myModal">'+
-		'<i class="fa fa-sign-out"></i>Login' +
-		'</a>';
-	} else {
-		document.getElementById("signButton").innerHTML = '';
-		document.getElementById("signButton1").innerHTML = '';
-		document.getElementById("signButton").innerHTML = '<a onclick="signOut()"><i class="fa fa-sign-out"></i>&nbsp;Logout</a>';
-		document.getElementById("signButton1").innerHTML = '<li><a onclick="signOut()">Logout</a></li>'
-														 + '<li><a data-toggle="modal" data-target="#myModal2">Info</a></li>';
-		firebase.auth().onAuthStateChanged(function(user) {
-			document.getElementById("userName").innerHTML = firebase.auth().currentUser.displayName;
-			document.getElementById("eMail").innerHTML = firebase.auth().currentUser.email;
-			
-			var user = firebase.auth().currentUser;
-			firebase.database().ref("user-infos/" + user.uid).on("value", function(snapshot){
-				document.getElementById('modalprofile').src = firebase.auth().currentUser.photoURL;
-				document.getElementById('modalName').innerHTML = snapshot.username.val();
-				document.getElementById('modalAddress').innerHTML = snapshot.address.val();
-				document.getElementById('modalEmail').innerHTML = snapshot.email.val();
-				document.getElementById('modalExtension').innerHTML = snapshot.Extension.val();
-				document.getElementById('modalBirth').innerHTML = snapshot.birth.val();
-				document.getElementById('modalPhone').innerHTML = snapshot.phone.val();
-				document.getElementById('modalDepartment').innerHTML = snapshot.department.val();
-			})
-		});
-	}
+    firebase.auth().onAuthStateChanged(function(user) {
+	    if(user){
+	    	document.getElementById("signButton").innerHTML = '';
+	    	document.getElementById("signButton1").innerHTML = '';
+	    	document.getElementById("signButton").innerHTML = '<a onclick="signOut()"><i class="fa fa-sign-out"></i>&nbsp;Logout</a>';
+	    	document.getElementById("signButton1").innerHTML = '<li><a onclick="signOut()">Logout</a></li>'
+	    		+ '<li><a data-toggle="modal" data-target="#myModal2">Info</a></li>';
+	    	document.getElementById("userName").innerHTML = firebase.auth().currentUser.displayName;
+	    	document.getElementById("eMail").innerHTML = firebase.auth().currentUser.email;
+		} else {
+			document.getElementById("signButton").innerHTML = '';
+	    	document.getElementById("signButton1").innerHTML = '';
+	    	document.getElementById("signButton1").innerHTML = '<li><a data-toggle="modal" data-target="#myModal">Login</a></li>';
+	    	document.getElementById("userName").innerHTML = '로그인을 해주세요.';
+	    	document.getElementById("eMail").innerHTML = '';
+	    	document.getElementById("signButton").innerHTML = '<a data-toggle="modal" data-target="#myModal">'+
+	    	'<i class="fa fa-sign-out"></i>Login' +
+	    	'</a>';
+		}
+    });
 });
 
 $("#departButton").click(function(){
@@ -373,57 +357,57 @@ function signOut(){
 function signIn(){
 	var provider = new firebase.auth.GoogleAuthProvider();
 	firebase.auth().signInWithPopup(provider);
-	
-	firebase.auth().onAuthStateChanged(function() {
-		var user = firebase.auth().currentUser;
-		firebase.database().ref('/user-infos/' + user.uid).on('value', function(snapshot){
-			user = firebase.auth().currentUser;
-			if(snapshot.val() != null){
-				$('#myModal').modal('hide');
-				var x = document.getElementById("snackbar");
-				x.innerHTML = 'Login'
-				x.className = "show";
-				setTimeout(function(){x.className = x.className.replace("show", "");},3000);
-				document.getElementById("signButton").innerHTML = '';
-				document.getElementById("signButton1").innerHTML = '';
-				document.getElementById("signButton").innerHTML = '<a onclick="signOut()"><i class="fa fa-sign-out"></i>&nbsp;Logout</a>';
-				document.getElementById("signButton1").innerHTML = '<li><a onclick="signOut()">Logout</a></li>'
-					 											 + '<li><a data-toggle="modal" data-target="#myModal2">Info</a></li>';
-				document.getElementById("userName").innerHTML = firebase.auth().currentUser.displayName;
-				document.getElementById("eMail").innerHTML = firebase.auth().currentUser.email;
-				writeUserData(user.uid, user.displayName, user.email, user.photoURL);
-				
-				var user1 = firebase.auth().currentUser;
-				firebase.database().ref('/users/' + user1.uid).once('value').then(function(snapshot1){
-					document.getElementById('modalprofile').src = firebase.auth().currentUser.photoURL;
-					document.getElementById('modalName').innerHTML = snapshot1.username.value;
-					document.getElementById('modalAddress').innerHTML = snapshot1.address.value;
-					document.getElementById('modalEmail').innerHTML = snapshot1.email.value;
-					document.getElementById('modalExtension').innerHTML = snapshot1.Extension.value;
-					document.getElementById('modalBirth').innerHTML = snapshot1.birth.value;
-					document.getElementById('modalPhone').innerHTML = snapshot1.phone.value;
-					document.getElementById('modalDepartment').innerHTML = snapshot1.department.value;
-				})
-			} else {
-				$('#myModal').modal('hide');
-				$('#myModal1').modal('show');
-				var user = firebase.auth().currentUser;
-				document.getElementById("usernameInput").value = user.displayName;
-				document.getElementById("emailInput").value = user.email;
-				document.getElementById("profileImg").src = user.photoURL;
-				document.getElementById("department").value = '';
-				document.getElementById("job").value = '';
-				document.getElementById("extension").value= '';
-				document.getElementById("call").value = '';
-				document.getElementById("emergency").value = '';
-				document.getElementById("sample6_address").value = '';
-				document.getElementById("sample6_address2").value = '';
-				document.getElementById("year").value = '년도';
-				document.getElementById("month").value = '월';
-				document.getElementById("day").value = '일';
-				document.getElementById("nickname").value = '';
-			}
-		});
+		
+	firebase.auth().onAuthStateChanged(function(user) {
+		if(user){
+			firebase.database().ref('user-infos/' + user.uid).on('value', function(snapshot1){
+				if(snapshot1.val() != null){
+					firebase.database().ref('infos').orderByChild('email').on('child_added', function(snapshot){
+						$('#myModal').modal('hide');
+						var x = document.getElementById("snackbar");
+						x.innerHTML = 'Login'
+							x.className = "show";
+						setTimeout(function(){x.className = x.className.replace("show", "");},3000);
+						
+						document.getElementById("signButton").innerHTML = '';
+						document.getElementById("signButton1").innerHTML = '';
+						document.getElementById("signButton").innerHTML = '<a onclick="signOut()"><i class="fa fa-sign-out"></i>&nbsp;Logout</a>';
+						document.getElementById("signButton1").innerHTML = '<li><a onclick="signOut()">Logout</a></li>'
+							+ '<li><a data-toggle="modal" data-target="#myModal2">Info</a></li>';
+						document.getElementById("userName").innerHTML = snapshot.val().username;
+						document.getElementById("eMail").innerHTML = snapshot.val().email;
+						
+						document.getElementById('modalprofile').src = firebase.auth().currentUser.photoURL;
+						document.getElementById('modalName').innerHTML = snapshot.val().username;
+						document.getElementById('modalAddress').innerHTML = snapshot.val().address;
+						document.getElementById('modalEmail').innerHTML = snapshot.val().email;
+						document.getElementById('modalExtension').innerHTML = snapshot.val().extension;
+						document.getElementById('modalBirth').innerHTML = snapshot.val().birth;
+						document.getElementById('modalPhone').innerHTML = snapshot.val().phone;
+						document.getElementById('modalDepartment').innerHTML = snapshot.val().department;
+					});
+				} else {
+					var user = firebase.auth().currentUser;
+					$('#myModal').modal('hide');
+					$('#myModal1').modal('show');
+					document.getElementById("usernameInput").value = user.displayName;
+					document.getElementById("emailInput").value = user.email;
+					document.getElementById("profileImg").src = user.photoURL;
+					document.getElementById("department").value = '';
+					document.getElementById("job").value = '';
+					document.getElementById("extension").value= '';
+					document.getElementById("call").value = '';
+					document.getElementById("emergency").value = '';
+					document.getElementById("sample6_address").value = '';
+					document.getElementById("sample6_address2").value = '';
+					document.getElementById("birth1").value = '년도';
+					document.getElementById("birth2").value = '월';
+					document.getElementById("birth3").value = '일';
+					document.getElementById("nickname").value = '';
+					document.getElementById("phone").value = '';
+				}
+			})
+		}
 	});
 }
 
@@ -468,28 +452,6 @@ function sample6_execDaumPostcode() {
             document.getElementById('sample6_address2').focus();
         }
     }).open();
-}
-
-/* load window */
-
-function minor(){
-	$("#bodyPage").load("minor.html");
-}
-
-function admin(){
-	if(firebase.auth().currentUser == null){
-		swal({
-            title: "로그인을 해주세요.",
-            text: "",
-            type: "warning"
-        });
-	} else {
-		$("#bodyPage").load("admin.html");
-	}
-}
-
-function main(){
-	$("#bodyPage").load("main.html");
 }
 
 /* add User */
@@ -560,8 +522,11 @@ function writeUserInfo(uid, pofileImg, username, email, nickname, department, jo
 }
 
 $('#registerBtn').click(function(){
+	var user = firebase.auth().currentUser;
+	writeUserData(user.uid, user.displayName, user.email, user.photoURL);
+	
 	var uid = firebase.auth().currentUser.uid;
-	var profileImg = document.getElementById('profileImg').src;
+	var profileImg = firebase.auth().currentUser.photoURL;
 	var username = $('#usernameInput').val();
 	var email = $('#emailInput').val();
 	var nickname = $('#nickname').val();
@@ -576,7 +541,6 @@ $('#registerBtn').click(function(){
 	var birth = $('#birth1').val() + '/' + $('#birth2').val() + '/' + $('#birth3').val();
 	
 	writeUserInfo(uid, profileImg, username, email, nickname, department, job, extension, phone, call, emergency, address, join, birth);
-
 	$('#myModal1').modal('hide');
 	
 	var x = document.getElementById("snackbar");
@@ -590,9 +554,9 @@ $('#registerBtn').click(function(){
 $('#myModal1').ready(function(){
 		/* 부서  */
 		firebase.database().ref("departments/").orderByKey().endAt("department").on("child_added", function(snapshot){
-				snapshot.forEach(function(data){
-					$('#department1').append('<li><a value="' + data.val() + '">' + data.val()
-							+ '</a></li>');
+			snapshot.forEach(function(data){
+				$('#department1').append('<li><a value="' + data.val() + '">' + data.val()
+						+ '</a></li>');
 			})
 			$('#department1 a').on('click', function(){
 				$('#department').val($(this).attr('value'));
@@ -641,30 +605,29 @@ $('#myModal1').ready(function(){
 		})
 });
 
-$(document).ready(function(){
+window.onload = function(){
 	
 	/* 부서 리스트 */
-	
-	firebase.database().ref("departments/").orderByKey().endAt("department").on("child_added", function(snapshot){
-			snapshot.forEach(function(data){
-				$('#departmentList1').append('<li class="list-group-item">' + data.val()
-						+ '</li>');
-			})
+		firebase.database().ref("departments/").orderByKey().endAt("department").on("child_added", function(snapshot){
+				snapshot.forEach(function(data){
+					$('#departmentList1').append('<li class="list-group-item">' + data.val()
+							+ '</li>');
+				})
+				
+	//			$('button').on('click', function(){
+	//			})
+		})
 			
-//			$('button').on('click', function(){
-//				alert($(this).value);
-//			})
-	})
-		
-	/* 직책 리스트 */
-	firebase.database().ref("jobs/").orderByKey().endAt("job").on("child_added", function(snapshot){
-			snapshot.forEach(function(data){
-				$('#jobList1').append('<li class="list-group-item">' + data.val()
-						+ '</li>');
-			})
-//				$('#' + data.val()).on('click', function(){
-//				$('#job').val($(this).attr('value'));
-//					alert($(this).value);
-//				})
-	})
-})
+		/* 직책 리스트 */
+		firebase.database().ref("jobs/").orderByKey().endAt("job").on("child_added", function(snapshot){
+				snapshot.forEach(function(data){
+					$('#jobList1').append('<li class="list-group-item">' + data.val()
+							+ '</li>');
+				})
+	//				$('#' + data.val()).on('click', function(){
+	//				$('#job').val($(this).attr('value'));
+	//				})
+		})
+}
+
+
