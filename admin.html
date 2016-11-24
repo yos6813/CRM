@@ -1,18 +1,19 @@
-<!-- <!DOCTYPE html> -->
-<!-- <html> -->
-<!-- <head> -->
-<!-- <meta charset="utf-8"> -->
-<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<link href="css/plugins/datapicker/datepicker3.css" rel="stylesheet">
 
-<!-- <title>Admin | Typography</title> -->
+<!-- Sweet Alert -->
+<link href="css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+<link href="css/plugins/iCheck/custom.css" rel="stylesheet">
 
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="font-awesome/css/font-awesome.css" rel="stylesheet">
-<link href="css/animate.css" rel="stylesheet">
-<link href="css/style.css" rel="stylesheet">
-<!-- </head> -->
-<!-- <body> -->
-<template>
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-sm-4">
         <h2>Admin</h2>
@@ -23,13 +24,11 @@
 	    <ul class="nav nav-tabs">
 	        <li class="active"><a data-toggle="tab" href="#tab-1"> 부서 리스트</a></li>
 	        <li class=""><a data-toggle="tab" href="#tab-2">직책 리스트</a></li>
+	        <li class=""><a data-toggle="tab" href="#tab-3">질문 유형 리스트</a></li>
 	    </ul>
 	    <div class="tab-content">
 	        <div id="tab-1" class="tab-pane active">
 	            <div class="ibox float-e-margins">
-	                 <div class="ibox-title">
-	                     <h5>부서 리스트</h5>
-	                 </div>
 	                 <div class="ibox-content no-padding">
 	                     <ul class="list-group" id="departmentList1">
 	                     </ul>
@@ -42,7 +41,7 @@
 	                <div class="ibox-content">
 	                    <form id="departmentForm" class="form-inline">
 	                        <div class="form-group">
-	                            <input type="text" placeholder="Enter Text" class="form-control" id="departmentInput">
+	                            <input type="text" placeholder="Enter Text" class="form-control" id="departmentInput" required>
 		                        <input class="btn btn-white" type="button" id="departButton" value="Add">
 	                        </div>
 	                    </form>
@@ -51,9 +50,6 @@
 	        </div>
 	        <div id="tab-2" class="tab-pane">
 	            <div class="ibox float-e-margins">
-	                 <div class="ibox-title">
-	                     <h5>직책 리스트</h5>
-	                 </div>
 	                 <div class="ibox-content no-padding">
 	                     <ul class="list-group" id="jobList1">
 	                     </ul>
@@ -66,8 +62,29 @@
 	                <div class="ibox-content">
 	                    <form id="jobForm" class="form-inline">
 	                        <div class="form-group">
-	                            <input type="text" placeholder="Enter Text" class="form-control" id="jobInput">
+	                            <input type="text" placeholder="Enter Text" class="form-control" id="jobInput" required>
 		                        <input class="btn btn-white" type="button" id="jobButton" value="Add">
+	                        </div>
+	                    </form>
+	                </div>
+	            </div>
+	        </div>
+	        <div id="tab-3" class="tab-pane">
+	            <div class="ibox float-e-margins">
+	                 <div class="ibox-content no-padding">
+	                     <ul class="list-group" id="typeList1">
+	                     </ul>
+	                 </div>
+	             </div>
+	             <div class="ibox float-e-margins">
+	                <div class="ibox-title">
+	                    <h5>질문유형 추가</h5>
+	                </div>
+	                <div class="ibox-content">
+	                    <form id="typeForm" class="form-inline">
+	                        <div class="form-group">
+	                            <input type="text" placeholder="Enter Text" class="form-control" id="typeInput" required>
+		                        <input class="btn btn-white" type="button" id="typeButton" value="Add">
 	                        </div>
 	                    </form>
 	                </div>
@@ -76,14 +93,17 @@
 	    </div>
 	</div>
 </div>
-</template>
-    <script src="js/jquery-2.1.1.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
-    <script src="js/inspinia.js"></script>
-    <script src="js/plugins/pace/pace.min.js"></script>
-    
-<!-- </body> -->
-<!-- </html> -->
+<!-- Mainly scripts -->
+<script src="js/jquery-2.1.1.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="js/plugins/pace/pace.min.js"></script>
+<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="js/jquery-ui.custom.min.js"></script>
+<script src="js/jquery-ui-1.10.4.min.js"></script>
+
+<!-- Custom and plugin javascript -->
+<script src="js/admin.js"></script>
+<script src="js/inspinia.js"></script>
+<script src="js/plugins/pace/pace.min.js"></script>

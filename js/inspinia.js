@@ -5,6 +5,27 @@
  *
  */
 $(document).ready(function () {
+	
+	$("#adminBtn").click(function(){
+		if(firebase.auth().currentUser == null){
+			swal({
+				title: "로그인을 해주세요.",
+				text: "",
+				type: "warning"
+			});
+		} else {
+			$('#bodyPage').load("admin.html");
+		}
+	})
+	
+	$("#company").click(function(){
+		$('#bodyPage').load("company.html");
+	})
+
+	$("#crmbtn").click(function(){
+		$('#bodyPage').load("call_list.html");
+	})
+	
     // Add body-small class if window less than 768px
     if ($(this).width() < 769) {
         $('body').addClass('body-small')
@@ -182,11 +203,11 @@ $(window).bind("resize", function () {
 // Local Storage functions
 // Set proper body class and plugins based on user configuration
 $(document).ready(function () {
-	$('#side-menu li').click(function(){
-		$('#side-menu li').removeClass('active');
-		
-		$(this).addClass('active');
-	})
+//	$('#side-menu li').click(function(){
+//		$('#side-menu li').removeClass('active');
+//		
+//		$(this).addClass('active');
+//	})
 	
 	
     if (localStorageSupport()) {
@@ -238,16 +259,11 @@ $(document).ready(function () {
     firebase.auth().onAuthStateChanged(function(user) {
 	    if(user){
 	    	document.getElementById("signButton").innerHTML = '';
-	    	document.getElementById("signButton1").innerHTML = '';
 	    	document.getElementById("signButton").innerHTML = '<a onclick="signOut()"><i class="fa fa-sign-out"></i>&nbsp;Logout</a>';
-	    	document.getElementById("signButton1").innerHTML = '<li><a onclick="signOut()">Logout</a></li>'
-	    		+ '<li><a data-toggle="modal" data-target="#myModal2">Info</a></li>';
 	    	document.getElementById("userName").innerHTML = firebase.auth().currentUser.displayName;
 	    	document.getElementById("eMail").innerHTML = firebase.auth().currentUser.email;
 		} else {
 			document.getElementById("signButton").innerHTML = '';
-	    	document.getElementById("signButton1").innerHTML = '';
-	    	document.getElementById("signButton1").innerHTML = '<li><a data-toggle="modal" data-target="#myModal">Login</a></li>';
 	    	document.getElementById("userName").innerHTML = '로그인을 해주세요.';
 	    	document.getElementById("eMail").innerHTML = '';
 	    	document.getElementById("signButton").innerHTML = '<a data-toggle="modal" data-target="#myModal">'+
@@ -255,26 +271,6 @@ $(document).ready(function () {
 	    	'</a>';
 		}
     });
-});
-
-$("#departButton").click(function(){
-	addDepartment(document.getElementById("departmentInput").value);
-	document.getElementById("departmentInput").value = '';
-	
-	var x = document.getElementById("snackbar");
-	x.innerHTML = '추가 완료';
-	x.className = "show";
-	setTimeout(function(){x.className = x.className.replace("show", "");},3000);
-});
-
-$("#jobButton").click(function(){
-	addJob(document.getElementById("jobInput").value);
-	document.getElementById("jobInput").value = '';
-	
-	var x = document.getElementById("snackbar");
-	x.innerHTML = '추가 완료';
-	x.className = "show";
-	setTimeout(function(){x.className = x.className.replace("show", "");},3000);
 });
 
 // check if browser support HTML5 local storage
@@ -343,11 +339,9 @@ function signOut(){
 	x.className = "show";
 	setTimeout(function(){x.className = x.className.replace("show", "");},3000);
 	document.getElementById("signButton").innerHTML = '';
-	document.getElementById("signButton1").innerHTML = '';
 	document.getElementById("signButton").innerHTML = '<a data-toggle="modal" data-target="#myModal">'+
 	'<i class="fa fa-sign-out"></i>Login' +
 	'</a>';
-	document.getElementById("signButton1").innerHTML = '<li><a data-toggle="modal" data-target="#myModal">Login</a></li>';
 	document.getElementById("userName").innerHTML = '로그인을 해주세요.';
 	document.getElementById("eMail").innerHTML = '';
 }
@@ -370,21 +364,9 @@ function signIn(){
 						setTimeout(function(){x.className = x.className.replace("show", "");},3000);
 						
 						document.getElementById("signButton").innerHTML = '';
-						document.getElementById("signButton1").innerHTML = '';
 						document.getElementById("signButton").innerHTML = '<a onclick="signOut()"><i class="fa fa-sign-out"></i>&nbsp;Logout</a>';
-						document.getElementById("signButton1").innerHTML = '<li><a onclick="signOut()">Logout</a></li>'
-							+ '<li><a data-toggle="modal" data-target="#myModal2">Info</a></li>';
 						document.getElementById("userName").innerHTML = snapshot.val().username;
 						document.getElementById("eMail").innerHTML = snapshot.val().email;
-						
-						document.getElementById('modalprofile').src = firebase.auth().currentUser.photoURL;
-						document.getElementById('modalName').innerHTML = snapshot.val().username;
-						document.getElementById('modalAddress').innerHTML = snapshot.val().address;
-						document.getElementById('modalEmail').innerHTML = snapshot.val().email;
-						document.getElementById('modalExtension').innerHTML = snapshot.val().extension;
-						document.getElementById('modalBirth').innerHTML = snapshot.val().birth;
-						document.getElementById('modalPhone').innerHTML = snapshot.val().phone;
-						document.getElementById('modalDepartment').innerHTML = snapshot.val().department;
 					});
 				} else {
 					var user = firebase.auth().currentUser;
@@ -462,34 +444,6 @@ function writeUserData(userId, name, email, imageUrl) {
     email: email,
     profile_picture : imageUrl
   });
-}
-
-/* add Admin */
-
-function addDepartment(department){
-	var departData = {
-		department: department
-	};
-	
-	var newDepartmentKey = firebase.database().ref().child('departments').push().key;
-	
-	var updates = {};
-	updates['/departments/' + newDepartmentKey] = departData;
-	
-	return firebase.database().ref().update(updates);
-}
-
-function addJob(job){
-	var jobData = {
-		job: job
-	};
-	
-	var newJobKey = firebase.database().ref().child('jobs').push().key;
-	
-	var updates = {};
-	updates['/jobs/' + newJobKey] = jobData;
-	
-	return firebase.database().ref().update(updates);
 }
 
 /* Register Form */
@@ -604,30 +558,5 @@ $('#myModal1').ready(function(){
 			$('#birth3').val($(this).attr('value'));
 		})
 });
-
-window.onload = function(){
-	
-	/* 부서 리스트 */
-		firebase.database().ref("departments/").orderByKey().endAt("department").on("child_added", function(snapshot){
-				snapshot.forEach(function(data){
-					$('#departmentList1').append('<li class="list-group-item">' + data.val()
-							+ '</li>');
-				})
-				
-	//			$('button').on('click', function(){
-	//			})
-		})
-			
-		/* 직책 리스트 */
-		firebase.database().ref("jobs/").orderByKey().endAt("job").on("child_added", function(snapshot){
-				snapshot.forEach(function(data){
-					$('#jobList1').append('<li class="list-group-item">' + data.val()
-							+ '</li>');
-				})
-	//				$('#' + data.val()).on('click', function(){
-	//				$('#job').val($(this).attr('value'));
-	//				})
-		})
-}
 
 

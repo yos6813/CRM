@@ -13,15 +13,28 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     
 
-    <title>CRM | Main view</title>
+    <title>At&amp;P Partners Intranet | Main view</title>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
 
     <link href="css/animate.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-    <link rel="import" href="call_list.html">
-    <link rel="import" href="admin.html">
+    
+    <script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script>
+	<script>
+	  // Initialize Firebase
+	  var config = {
+	    apiKey: "AIzaSyBSXRDrVzqppOGW-eZZN5IyHdeZcKjUxR8",
+	    authDomain: "crmapp-32675.firebaseapp.com",
+	    databaseURL: "https://crmapp-32675.firebaseio.com",
+	    storageBucket: "crmapp-32675.appspot.com",
+	    messagingSenderId: "805712434179"
+	  };
+	  firebase.initializeApp(config);
+	</script>
+    
+    
 </head>
 
 <body>
@@ -58,7 +71,7 @@
                             </ul>
                         </li>
                         <li><a href="projects.html">CR 활동</a></li>
-                        <li><a href="graph_flot.html">고객관리</a></li>
+                        <li><a id="company">고객관리</a></li>
                         <li><a href="graph_flot.html">계약서관리</a></li>
                     </ul>
                 </li>
@@ -71,7 +84,7 @@
         <div class="row border-bottom">
             <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
                 <div class="navbar-header">
-                    <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
                     <form role="search" class="navbar-form-custom" method="post" action="#">
                         <div class="form-group">
                             <input type="text" placeholder="Search for something" class="form-control" name="top-search" id="top-search">
@@ -79,7 +92,7 @@
                     </form>
                 </div>
                 <ul class="nav navbar-top-links navbar-right">
-                	<li id="adminButton">
+                	<li>
                 		<a id="adminBtn">
                 			<i class="fa fa-user"></i>admin
                 		</a>
@@ -228,42 +241,6 @@
       
     </div>
   </div>
-  
-  <!-- Profile Modal -->
- <div class="modal fade" id="myModal2" role="dialog">
-    <div class="modal-dialog">
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">User Info</h4>
-        </div>
-         <div class="contact-box">
-	        <div class="col-sm-4">
-	            <div class="text-center">
-	                <img alt="image" class="img-circle m-t-xs img-responsive" src="" id="modalprofile">
-	                <div class="m-t-xs font-bold" id="modalDepartment"></div>
-	            </div>
-	        </div>
-            <div class="col-sm-8">
-               <h3><strong id="modalName"></strong></h3>
-               <p id="modalAddress"><i class="fa fa-map-marker"></i></p>
-               <p id="modalEmail"><i class="fa fa-envelope"></i></p>
-               <address>
-                   <p id="modalExtension"></p><br>
-                   <p id="modalPhone" title="Phone"></p>
-                   <p id="modalBirth"></p>
-               </address>
-            </div>
-            <div class="clearfix"></div>
-	     <div class="modal-footer">
-  		   <button type="button" class="btn btn-default">Edit</button>
-	       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-   		 </div>
-   	 </div>
-   	 </div>
-  </div>
-</div>
 </div>
 
 
@@ -289,48 +266,6 @@
 <!-- Date range picker -->
 <script src="js/plugins/daterangepicker/daterangepicker.js"></script>
 
-<script>
-var link = document.querySelector('link[rel="import"]');
-
-// Clone the <template> in the import.
-var template = link.import.querySelector('template');
-var clone = document.importNode(template.content, true);
-
-document.querySelector('#bodyPage').appendChild(clone);
-</script>
-
-<script>
-$("#adminButton").click(function(){
-	if(firebase.auth().currentUser == null){
-		swal({
-			title: "로그인을 해주세요.",
-			text: "",
-			type: "warning"
-		});
-	} else {
-		$('#bodyPage').empty();
-		var link = document.querySelector('link[href="admin.html"]');
-
-	    // Clone the <template> in the import.
-	    var template = link.import.querySelector('template');
-	    var clone = document.importNode(template.content, true);
-	    
-	    document.querySelector('#bodyPage').appendChild(clone);
-	}
-})
-
-$("#crmbtn").click(function(){
-	$('#bodyPage').empty();
-	var link = document.querySelector('link[rel="import"]');
-
-    // Clone the <template> in the import.
-    var template = link.import.querySelector('template');
-    var clone = document.importNode(template.content, true);
-
-    document.querySelector('#bodyPage').appendChild(clone);
-})
-</script>
-
 <script type="text/javascript">
 $('#data_1 .input-group.date').datepicker({
     todayBtn: "linked",
@@ -339,21 +274,6 @@ $('#data_1 .input-group.date').datepicker({
     calendarWeeks: true,
     autoclose: true
 });
-
-$('input[name="daterange"]').daterangepicker();
-</script>
-
-<script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script>
-<script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyBSXRDrVzqppOGW-eZZN5IyHdeZcKjUxR8",
-    authDomain: "crmapp-32675.firebaseapp.com",
-    databaseURL: "https://crmapp-32675.firebaseio.com",
-    storageBucket: "crmapp-32675.appspot.com",
-    messagingSenderId: "805712434179"
-  };
-  firebase.initializeApp(config);
 </script>
 
 <!-- daum 주소찾기 -->

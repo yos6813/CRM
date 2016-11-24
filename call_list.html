@@ -1,13 +1,10 @@
 <meta charset="utf-8">
-<script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
 <link href="css/animate.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
 <link href="css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
-<!-- FooTable -->
-<link href="css/plugins/footable/footable.core.css" rel="stylesheet">
-<template>
+
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-sm-4">
         <h2>2016</h2>
@@ -29,20 +26,16 @@
             <div class="ibox-title">
                 <h5>YETA 고객 상담 활동을 기록하는 공간입니다.</h5>
                 <div class="ibox-tools">
-                    <a href="form_call_record.html" class="btn btn-primary btn-sm">등록하기</a>
+                    <a id="writebtn" class="btn btn-primary btn-sm">등록하기</a>
                 </div>
             </div>
             <div class="ibox-content">
                 <div class="row m-b-sm m-t-sm">
                   <div class="col-md-2">
                       <div class="input-group m-b"><span class="input-group-addon">구분</span>
-                          <select class="input-sm form-control input-s-sm inline">
+                          <select id="typeSelect" class="input-sm form-control input-s-sm inline">
                             <option value="0">전체</option>
-                            <option value="1">세법</option>
-                            <option value="2">시스템</option>
-                            <option value="3">운용</option>
-                            <option value="4">기타</option>
-                      </select>
+                      	  </select>
                       </div>
                   </div>
                   <div class="col-md-4">
@@ -98,10 +91,10 @@
                                         <span>세법</span>
                                     </td>
                                     <td class="project-title">
-                                        <a href="project_detail.html">연말정산 부양가족 공제 관련</a>
+                                        <a>연말정산 부양가족 공제 관련</a>
                                     </td>
                                     <td class="project-title">
-                                        <a href="project_detail.html">(주)SK텔레콤</a>
+                                        <a>(주)SK텔레콤</a>
                                         <br/>
                                         <small>김현아 대리</small>
                                     </td>
@@ -129,41 +122,27 @@
             </div>
         </div>
     </div>
-    </template>
-<!-- </div> -->
 <!-- Mainly scripts -->
 <script src="js/jquery-2.1.1.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
 <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
-<!-- FooTable -->
-<script src="js/plugins/footable/footable.all.min.js"></script>
 
-<!-- Custom and plugin javascript -->
+<!-- Custom and plugin javascript  -->
 <script src="js/inspinia.js"></script>
 <script src="js/plugins/pace/pace.min.js"></script>
 
-<!-- Page-Level Scripts -->
-<script>
-//     $(document).ready(function() {
-
-        $('.footable').footable();
-        $('.footable2').footable();
-
-//     });
-
-</script>
 
 <!-- iCheck -->
 <script src="js/plugins/iCheck/icheck.min.js"></script>
 <script>
-//     $(document).ready(function() {
+  $(document).ready(function() {
         $('.i-checks').iCheck({
             checkboxClass: 'icheckbox_square-green',
             radioClass: 'iradio_square-green',
         });
-//     });
+   });
 </script>
 
 <script>
@@ -194,3 +173,4 @@ function simpleLoad(btn, state) {
     }
 }
 </script>
+<script src="js/call_list.js"></script>
