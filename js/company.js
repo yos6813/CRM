@@ -73,5 +73,9 @@ $('#companySubmit').click(function(){
 	
 	addCompany(name, addr, license, corporate, client);
 	
-	alert("추가");
+	$('#comName').val('');
+	$('#addr').val('');
+	$('#addr2').val('');
+	$('#licenseeNum').val('');
+	$('#corporateNum').val('');
 })

@@ -8494,3 +8494,8 @@ body.md-skin {
 #jobA, #departmentA{
 	font-size: 10px;
 }
+
+#year, #month, #day{
+	height: 100px;
+	overflow: auto;
+}

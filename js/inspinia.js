@@ -21,6 +21,10 @@ $(document).ready(function () {
 	$("#company").click(function(){
 		$('#bodyPage').load("company.html");
 	})
+	
+	$("#customer").click(function(){
+		$('#bodyPage').load("customer.html");
+	})
 
 	$("#crmbtn").click(function(){
 		$('#bodyPage').load("call_list.html");
@@ -448,10 +452,10 @@ function writeUserData(userId, name, email, imageUrl) {
 
 /* Register Form */
 
-function writeUserInfo(uid, pofileImg, username, email, nickname, department, job, extension, phone, call, emergency, address, join, birth){
+function writeUserInfo(uid, userImg, username, email, nickname, department, job, extension, phone, call, emergency, address, join, birth){
 	var infoData = {
 		uid: uid,
-		picture: profileImg,
+		picture: userImg,
 		username: username,
 		email: email,
 		nickname: nickname,
@@ -480,7 +484,7 @@ $('#registerBtn').click(function(){
 	writeUserData(user.uid, user.displayName, user.email, user.photoURL);
 	
 	var uid = firebase.auth().currentUser.uid;
-	var profileImg = firebase.auth().currentUser.photoURL;
+	var userImg = firebase.auth().currentUser.photoURL;
 	var username = $('#usernameInput').val();
 	var email = $('#emailInput').val();
 	var nickname = $('#nickname').val();
@@ -494,7 +498,7 @@ $('#registerBtn').click(function(){
 	var join = $('#join').val();
 	var birth = $('#birth1').val() + '/' + $('#birth2').val() + '/' + $('#birth3').val();
 	
-	writeUserInfo(uid, profileImg, username, email, nickname, department, job, extension, phone, call, emergency, address, join, birth);
+	writeUserInfo(uid, userImg, username, email, nickname, department, job, extension, phone, call, emergency, address, join, birth);
 	$('#myModal1').modal('hide');
 	
 	var x = document.getElementById("snackbar");
