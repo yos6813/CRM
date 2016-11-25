@@ -7,25 +7,29 @@ firebase.database().ref("types/").orderByKey().endAt("type").on("child_added", f
 	})
 })
 
-
 $("#customerIn").keydown(function(){
-//	var nameInput = $("#customerIn").val();
-	firebase.database().ref("customer/").orderByKey().on("child_added", function(snapshot){
-		firebase.database().ref("customer/" + snapshot.key + '/cusPhone').orderByChild('cusPhone').equalTo($("#customerIn").val()).on('child_added', function(snapshot1){
-			snapshot1.forEach(function(data){
-					alert(data.val());
-				$('#phoneSection').append('<tr>' +
-										  '<td><input type="radio" value="option1" id="optionsContact1" name="optionsContact"></td>' +
-										  '<td>'+ data[0].val() + '</td>' +
-										  '<td>'+ data[1].val() + '</td>' +
-										  '<td class="text-right">' +
-										  '<div class="btn-group">' +
-										  '<button class="modify btn-white btn btn-xs">수정</button>' +
-										  '<button class="delete btn-white btn btn-xs">삭제</button>' +
-										  '</div>' +
-										  '</td>' +
-										  '</tr>');
+	var phoneSel = $('.customerSel').val();
+	var phoneSel2;
+	
+	firebase.database().ref('customer').orderByChild('cusName').equalTo(phoneSel).on('child_added',function(snapshot){
+		firebase.database().ref('customer/' + snapshot.key + '/cusPhone').on('value', function(snapshot2){
+			snapshot2.forEach(function(){
+				phoneSel2 = snapshot2.val();
+				console.log(phoneSel2);
+				$.each(phoneSel2, function(index, item){
+					$('#phoneSection').append('<tr>' +
+							'<td><input type="radio" value="option1" id="optionsContact1" name="optionsContact"></td>' +
+							'<td>'+ item[0] + '</td>' +
+							'<td>'+ item[1] + '</td>' +
+							'<td class="text-right">' +
+							'<div class="btn-group">' +
+							'<button class="modify btn-white btn btn-xs">수정</button>' +
+							'<button class="delete btn-white btn btn-xs">삭제</button>' +
+							'</div>' +
+							'</td>' +
+							'</tr>');
+				})
 			})
-		});
+		})
 	});
 });

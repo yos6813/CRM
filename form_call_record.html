@@ -237,7 +237,7 @@ $(document).ready(function(){
 
 <!-- 고객 autocomplete -->
 <script>
-$(document).ready(function(){
+if($(".companySel").val() == null){
 	var cusSel3 = [];
 	firebase.database().ref("customer/").orderByKey().on("child_added", function(snapshot){
 		firebase.database().ref("customer/" + snapshot.key + '/cusName').on('value', function(snapshot1){
@@ -245,18 +245,17 @@ $(document).ready(function(){
 			$(".customerSel").typeahead({ source: cusSel3});
 		});
 	});
-});
-</script>
-<script>
-$(".companySel").blur(function(){
-	var cusSel = $('.companySel').val();
-	var cusSel2 = [];
-	
-	firebase.database().ref('customer').orderByChild('cusCompany').equalTo(cusSel).on('child_added',function(snapshot){
-		firebase.database().ref('customer/' + snapshot.key + '/cusName').on('value', function(snapshot2){
-			cusSel2.push(snapshot2.val());
-			$(".customerSel").typeahead({source: cusSel2});
-		})
+} else {
+	$(".companySel").keydown(function(){
+		var cusSel = $('.companySel').val();
+		var cusSel2 = [];
+		
+		firebase.database().ref('customer').orderByChild('cusCompany').equalTo(cusSel).on('child_added',function(snapshot){
+			firebase.database().ref('customer/' + snapshot.key + '/cusName').on('value', function(snapshot2){
+				cusSel2.push(snapshot2.val());
+				$(".customerSel").typeahead({source: cusSel2});
+			})
+		});
 	});
-});
+}
 </script>
