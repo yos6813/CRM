@@ -44,7 +44,7 @@
                 <div class="ibox-content">
                     <form method="get" class="form-horizontal">
                         <div class="form-group"><label class="col-sm-2 control-label">고객사명</label>
-                            <div class="col-sm-3"><input type="text" placeholder="고객사명을 입력하세요" class="typeahead_1 form-control" /></div>
+                            <div class="col-sm-3"><input type="text" placeholder="고객사명을 입력하세요" class="companySel form-control" /></div>
                             <div class="col-sm-7">
                                 <span class="badge badge-default"> YETA </span>
                                 <span class="badge badge-default"> ACADEMY </span>
@@ -52,7 +52,7 @@
                             </div>
                         </div>
                         <div class="form-group"><label class="col-sm-2 control-label">고객명</label>
-                            <div class="col-sm-3"><input type="text" placeholder="고객명을 입력하세요" class="typeahead_2 form-control" /></div>
+                            <div class="col-sm-3"><input type="text" placeholder="고객명을 입력하세요" class="customerSel form-control" /></div>
                         </div>
                         <div class="form-group"><label class="col-sm-2 control-label">연락처</label>
                             <div class="col-sm-3">
@@ -268,12 +268,11 @@ $(document).ready(function() {
 <!-- 회사 autocomplete -->
 <script>
 $(document).ready(function(){
-	var comName = [];
+	var comSel = [];
 	firebase.database().ref("company/").orderByKey().on("child_added", function(snapshot){
 		firebase.database().ref("company/" + snapshot.key + '/name').on('value', function(snapshot1){
-			comName.push(snapshot1.val());
-			alert(comName);
-			$(".typeahead_1").typeahead({ source: comName});
+			comSel.push(snapshot1.val());
+			$(".companySel").typeahead({ source: comSel});
 		});
 	});
 });
@@ -282,12 +281,11 @@ $(document).ready(function(){
 <!-- 고객 autocomplete -->
 <script>
 $(document).ready(function(){
-	var comName = [];
-	firebase.database().ref("customer/").orderByKey().on("child_added", function(snapshot){
-		firebase.database().ref("customer/" + snapshot.key + '/cusName').on('value', function(snapshot1){
-			comName.push(snapshot1.val());
-			alert(comName);
-			$(".typeahead_2").typeahead({ source: comName});
+	var cusSel = [];
+	firebase.database().ref("customer/").orderByKey().on("child_added", function(snapshot2){
+		firebase.database().ref("customer/" + snapshot2.key + '/cusName').on('value', function(snapshot3){
+			cusSel.push(snapshot3.val());
+			$(".customerSel").typeahead({ source: cusSel});
 		});
 	});
 });
