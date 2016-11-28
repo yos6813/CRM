@@ -12,6 +12,9 @@
 <link href="css/plugins/footable/footable.core.css" rel="stylesheet">
 <link href="css/plugins/summernote/summernote.css" rel="stylesheet">
 <link href="css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
+<link href="css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet">
+<link href="css/plugins/dropzone/basic.css" rel="stylesheet">
+<link href="css/plugins/dropzone/dropzone.css" rel="stylesheet">
 
 <!-- </head> -->
 
@@ -46,9 +49,9 @@
                         <div class="form-group"><label class="col-sm-2 control-label">고객사명</label>
                             <div class="col-sm-3"><input type="text" placeholder="고객사명을 입력하세요" class="companySel form-control" /></div>
                             <div class="col-sm-7">
-                                <span class="badge badge-default"> YETA </span>
-                                <span class="badge badge-default"> ACADEMY </span>
-                                <span class="badge badge-default"> CONSULTING </span>
+                                <span class="badge badge-success yeta"> YETA </span>
+                                <span class="badge badge-info academy"> ACADEMY </span>
+                                <span class="badge badge-warning consulting"> CONSULTING </span>
                             </div>
                         </div>
                         <div class="form-group"><label class="col-sm-2 control-label">고객명</label>
@@ -57,8 +60,8 @@
                         <div class="form-group"><label class="col-sm-2 control-label">연락처</label>
                             <div class="col-sm-3">
                                 <table class="table table-hover">
-                                    <tbody id="PhoneSection">
-                                    	
+                                    <tbody id="phoneSec">
+                                    
                                     </tbody>
                                 </table>
                             </div>
@@ -72,38 +75,28 @@
                         </div>
                         <div class="form-group"><label class="col-sm-2 control-label">제목</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control">
+                                <input id="title" type="text" class="form-control">
                                 <span class="help-block m-b-none">문의 내용을 요약하여 작성해 주세요</span>
                             </div>
                         </div>
-
-
-
                         <div class="form-group"><label class="col-sm-2 control-label">문의 내용</label>
-
                             <div class="col-sm-10">
-                                <!-- <div class="ibox-content no-padding"> -->
-                              <div class="summernote">
-                                  <br/>
-                                  <br/>
-                                  <br/>
-                                  <br/>
-                                  <br/>
-                                  <br/>
-                                  <br/>
-                                  <br/>
-                                  <br/>
-                                  <br/>
-                                  <br/>
-                                  <br/>
-                              </div>
-                              <!-- </div> -->
+                              <textarea id="postText" class="summernote">
+                              </textarea>
                             </div>
                         </div>
+                        <div class="form-group"><label class="col-sm-2 control-label">파일 업로드 <br/></label>
+	                        <div  class="col-sm-10 fileinput fileinput-new" data-provides="fileinput">
+								<span class="btn btn-default btn-file"><span class="fileinput-new">파일 업로드</span><span class="fileinput-exists">바꾸기</span><input id="fileInput" type="file"  multiple ></span>
+								<span class="fileinput-filename"></span>
+                                <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+							</div>
+						</div>
+						<div class="hr-line-dashed"></div>
                         <div class="form-group"><label class="col-sm-2 control-label">태그 <br/>
                             <small class="text-navy">검색용 태그를 입력하세요</small></label>
                             <div class="col-sm-10">
-                                <input class="tagsinput form-control" type="text" value="" />
+                                <input class="tagsinput form-control" name="tag" type="text" value="" />
                             </div>
                         </div>
 
@@ -111,16 +104,16 @@
                         <div class="form-group"><label class="col-sm-2 control-label">처리상태 <br/>
                             <small class="text-navy">처리상태를 선택하세요</small></label>
                             <div class="col-sm-10">
-                                <div><label> <input type="radio" checked="" value="option1" id="optionsRadios1" name="optionsRadios"> 접수</label></div>
-                                <div><label> <input type="radio" value="option2" id="optionsRadios2" name="optionsRadios"> 해결</label></div>
-                                <div><label> <input type="radio" value="option3" id="optionsRadios3" name="optionsRadios"> 보류</label></div>
+                                <div><label> <input type="radio" checked="" value="접수" id="optionsRadios1" name="optionsRadios"> 접수</label></div>
+                                <div><label> <input type="radio" value="해결" id="optionsRadios2" name="optionsRadios"> 해결</label></div>
+                                <div><label> <input type="radio" value="보류" id="optionsRadios3" name="optionsRadios"> 보류</label></div>
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
                             <div class="col-sm-4 col-sm-offset-2">
-                                <button class="btn btn-white" type="submit">취소</button>
-                                <button class="btn btn-primary" type="submit">저장</button>
+                                <input id="postCancel" class="demo3 btn btn-white" type="button" value="취소">
+                                <input id="postSave" class="btn btn-primary" type="button" value="저장">
                             </div>
                         </div>
                     </form>
@@ -168,36 +161,6 @@ $(document).ready(function() {
 });
 </script>
 
-<script>
-$(document).ready(function() {
-
-    $('#loading-example-btn').click(function() {
-        btn = $(this);
-        simpleLoad(btn, true)
-
-        // Ajax example
-        //                $.ajax().always(function () {
-        //                    simpleLoad($(this), false)
-        //                });
-
-        simpleLoad(btn, false)
-    });
-});
-
-function simpleLoad(btn, state) {
-    if (state) {
-        btn.children().addClass('fa-spin');
-        btn.contents().last().replaceWith(" Loading");
-    } else {
-        setTimeout(function() {
-            btn.children().removeClass('fa-spin');
-            btn.contents().last().replaceWith(" Refresh");
-        }, 2000);
-    }
-}
-</script>
-
-
 <!-- Typehead -->
 <script src="js/plugins/typehead/bootstrap3-typeahead.min.js"></script>
 
@@ -214,48 +177,18 @@ $(document).ready(function() {
 <script src="js/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
 <script>
 $(document).ready(function() {
-
     $('.tagsinput').tagsinput({
         tagClass: 'label label-primary'
     });
+    Dropzone.options.dropzoneForm = {
+            paramName: "file", // The name that will be used to transfer the file
+            maxFilesize: 2, // MB
+            dictDefaultMessage: "<strong>Drop files here or click to upload. </strong></br> (This is just a demo dropzone. Selected files are not actually uploaded.)"
+        };
 });
 </script>
 <script src="js/form_call_record.js"></script>
-
-<!-- 회사 autocomplete -->
-<script>
-$(document).ready(function(){
-	var comSel = [];
-	firebase.database().ref("company/").orderByKey().on("child_added", function(snapshot){
-		firebase.database().ref("company/" + snapshot.key + '/name').on('value', function(snapshot1){
-			comSel.push(snapshot1.val());
-			$(".companySel").typeahead({ source: comSel});
-		});
-	});
-});
-</script>
-
-<!-- 고객 autocomplete -->
-<script>
-if($(".companySel").val() == null){
-	var cusSel3 = [];
-	firebase.database().ref("customer/").orderByKey().on("child_added", function(snapshot){
-		firebase.database().ref("customer/" + snapshot.key + '/cusName').on('value', function(snapshot1){
-			cusSel3.push(snapshot1.val());
-			$(".customerSel").typeahead({ source: cusSel3});
-		});
-	});
-} else {
-	$(".companySel").keydown(function(){
-		var cusSel = $('.companySel').val();
-		var cusSel2 = [];
-		
-		firebase.database().ref('customer').orderByChild('cusCompany').equalTo(cusSel).on('child_added',function(snapshot){
-			firebase.database().ref('customer/' + snapshot.key + '/cusName').on('value', function(snapshot2){
-				cusSel2.push(snapshot2.val());
-				$(".customerSel").typeahead({source: cusSel2});
-			})
-		});
-	});
-}
-</script>
+<!-- Jasny -->
+<script src="js/plugins/jasny/jasny-bootstrap.min.js"></script>
+ <!-- DROPZONE -->
+<script src="js/plugins/dropzone/dropzone.js"></script>

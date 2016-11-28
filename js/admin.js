@@ -97,11 +97,11 @@ $(document).ready(function(){
 	firebase.database().ref("types/").orderByKey().endAt("type").on("child_added", function(snapshot){
 		snapshot.forEach(function(data){
 			$('#typeList1').append('<li class="typeli list-group-item">' + data.val()
-					+ '</li><button class="typeA btn btn-white btn-xs" value="' + snapshot.key + '">삭제');
+					+ '</li><button class="typeA btn btn-white btn-xs" value="' + snapshot.key + '">삭제</button>');
 		})
 	})	
 })
-	
+
 /* 리스트 삭제 */
 
 $('.departmentA').on('click', function(){
