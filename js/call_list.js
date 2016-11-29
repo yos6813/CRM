@@ -1,6 +1,14 @@
-$("#writebtn").click(function(){
-	$('#bodyPage').load("form_call_record.html");
-});
+
+	$("#writebtn").click(function(){
+		$('#bodyPage').load("form_call_record.html");
+	});
+	
+	function readView(){
+		$('#bodyPage').load("view_call_record.html");
+	}
+	
+	
+	
 
 /* 유형 드롭다운 옵션 추가 */
 
@@ -11,22 +19,39 @@ firebase.database().ref("types/").orderByKey().endAt("type").on("child_added", f
 	})
 })
 
+
+//넘버링에 필요한 변수
+//		var listNumber, n = 0;
+//		for(var i=0; i<list.size(); i++) {
+//			listNumber = totalcount - (start + n)+1 ;
+//			System.out.println("페이지번호:"+listNumber);
+//			n++;
+//		}
+
 $(document).ready(function(){
+	$('.yeta').hide();
+	$('.academy').hide();
+	$('.consulting').hide();
+	
+	$('#postList').children().remove();
 	firebase.database().ref("posts/").orderByKey().endAt("title").on("child_added", function(snapshot){
 		firebase.database().ref('posts/' + snapshot.key).on('value', function(snapshot1){
+			console.log(snapshot1.key.length);
+			console.log(snapshot1.key);
 			$('#postList').each(function(i){
+				i++;
 				$('#postList').append('<tr>' +
-						'<td class="project-title">' +
-						'<span>' + i + '</span>' +
-						'</td>' +
+//						'<td class="project-title">' +
+//						'<span>' + i + '</span>' +
+//						'</td>' +
 						'<td class="project-status">' +
 						'<span class="label label-default">' + snapshot1.val().postState + '</span>' +
 						'</td>' +
 						'<td class="project-category">' +
 						'<span>' + snapshot1.val().postType + '</span>' +
 						'</td>' +
-						'<td class="project-title">' +
-						'<a>' + snapshot1.val().title + '</a>' +
+						'<td class="title project-title">' +
+						'<a onclick="readView()" id="' + snapshot.key + '">' + snapshot1.val().title + '</a>' +
 						'</td>' +
 						'<td class="project-title">' +
 						'<a id="titleCom">' + snapshot1.val().postCompany + '</a>' +
@@ -34,15 +59,15 @@ $(document).ready(function(){
 						'<small>' + snapshot1.val().username + '</small>' +
 						'</td>' +
 						'<td class="project-clientcategory">' + 
-						'<span class="badge badge-success yeta"> YETA </span>' +
-						'<span class="badge badge-info academy"> ACADEMY </span>' +
-						'<span class="badge badge-warning consulting"> CONSULTING </span>' +
+//						'<span class="badge badge-success yeta"> YETA </span>' +
+//						'<span class="badge badge-info academy"> ACADEMY </span>' +
+//						'<span class="badge badge-warning consulting"> CONSULTING </span>' +
 						'</td>' +
 						'<td class="project-people">' +
-						'<a href=""><img alt="image" class="img-circle" src="' + snapshot1.val().userImg + '"></a>' +
+						'<a><img alt="image" class="img-circle" src="' + snapshot1.val().userImg + '"></a>' +
 						'</td>' +
 						'<td class="project-people">' +
-						'<a href=""><img alt="image" class="img-circle" src="img/a3.jpg"></a>' +
+						'<a><img alt="image" class="img-circle" src=""></a>' +
 						'</td>' +
 						'<td class="project-title">' +
 						'<small>접수: ' + snapshot1.val().postDate + '</small>' +
@@ -54,4 +79,3 @@ $(document).ready(function(){
 		});
 	});
 })
-

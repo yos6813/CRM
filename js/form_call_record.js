@@ -119,7 +119,7 @@ $('.companySel').blur(function(){
 
 // 글 등록
 
-function addPost(uid, title, text, tags, postCompany, postCustomer, postType, postCusPhone, postState, username, postDate, userImg, companyType){
+function addPost(uid, title, text, tags, postCompany, postCustomer, postType, postCusPhone, postState, username, postDate, userImg, companyType, uploadfile){
 	var postData = {
 		uid: uid,
 		title: title,
@@ -133,7 +133,8 @@ function addPost(uid, title, text, tags, postCompany, postCustomer, postType, po
 		username: username,
 		postDate: postDate,
 		userImg: userImg,
-		companyType: companyType
+		companyType: companyType,
+		uploadfile: uploadfile
 };
 	
 	var newPostKey = firebase.database().ref().child('posts').push().key;
@@ -174,13 +175,47 @@ $('#postCancel').click(function () {
     });
 });
 
+// 파일 업로드
+
+var auth = firebase.auth();
+var storageRef = firebase.storage().ref();
+
+function handleFileSelect(evt) {
+  evt.stopPropagation();
+  evt.preventDefault();
+  var file = evt.target.files[0];
+  var uploadfile = '';
+
+  var metadata = {
+    'contentType': file.type
+  };
+
+  // Push to child path.
+  // [START oncomplete]
+  storageRef.child('files/' + file.name).put(file, metadata).then(function(snapshot) {
+    console.log('Uploaded', snapshot.totalBytes, 'bytes.');
+    console.log(snapshot.metadata);
+    var url = snapshot.metadata.downloadURLs[0];
+    console.log('File available at', url);
+   $('#fileInput').append('<input type="text" id="fileName" value="' +  file.name + '">');
+  }).catch(function(error) {
+    console.error('Upload failed:', error);
+  });
+}
+	
+	$('#fileInput').hide();
+
+  document.getElementById('fileButton').addEventListener('change', handleFileSelect, false);
+
 // 글 저장
 
 $('#postSave').click(function(){
 	var title = $('#title').val();
 	var text = $('#postText').val();
 	var tags = [];
+	var tagList = [];
 	var tag = '';
+	var tagOverlap = '';
 	var postCompany = $('.companySel').val();
 	var postCustomer = $('.customerSel').val();
 	var postType = $('#writeTypeSelect').val();
@@ -191,6 +226,7 @@ $('#postSave').click(function(){
 	var userImg = firebase.auth().currentUser.photoURL;
 	var uid = firebase.auth().currentUser.uid;
 	var username = firebase.auth().currentUser.displayName;
+	var uploadfile = '';
 	
 	var companyType = [];
 	var comClient = $('.companySel').val();
@@ -199,7 +235,6 @@ $('#postSave').click(function(){
 			companyType.push(snapshot1.val());
 		})
 	})
-	
 	
 	$('input[type=radio][name="optionsRadios"]:checked').each(function(){
 		postState = $(this).val();
@@ -213,20 +248,15 @@ $('#postSave').click(function(){
 		tags.push($(this).text());
 	})
 	
-	for(var i=0; i<=tags.length; i++){
-		tag = tags[i]
-		if(tags[i] != undefined){
+	for(var j=0; j<=tags.length; j++){
+		if(tags[j] != undefined){
+			tag = tags[j]
 			addtags(tag);
 		}
 	}
-
-	var storage = firebase.storage().ref("photos/");
-	var file = $('.fileinput-filename').text();
+	uploadfile = $('#fileName').val();
 	
-	
-	storage.child('photos/' + file.name).put(file);
-	
-	addPost(uid, title, text, tags, postCompany, postCustomer, postType, postCusPhone, postState, username, postDate, userImg, companyType);
+	addPost(uid, title, text, tags, postCompany, postCustomer, postType, postCusPhone, postState, username, postDate, userImg, companyType, uploadfile);
 	$('#bodyPage').load("call_list.html");
 })
 
