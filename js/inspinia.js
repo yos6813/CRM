@@ -565,4 +565,10 @@ $('#myModal1').ready(function(){
 		})
 });
 
-
+function viewPage(){
+	alert("클릭");
+	console.log($(this).val());
+	firebase.database().ref('posts/' + $(this).val()).on('value', function(snapshot){
+		console.log(snapshot.val());
+	})
+}
